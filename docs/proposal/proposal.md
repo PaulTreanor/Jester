@@ -52,19 +52,19 @@ But we think that the real value in the project isn’t the Android app itself, 
 
 ### Programming tools / Tech stack
 
-####Open Pose
+#### Open Pose
 Software that can analyse and track key points on a person. Key points can include elbow, shoulders, finger joints etc. A machine learning program can use key points locations to identify and distinguish between various gestures.
 
-####Python
+#### Python
 The machine learning program that will take keypoint analyses from OpenPose as an input will be written in Python. It will use a neural network to classify images and then output whether or not the image is an identified gesture or what gesture it is. 
 
-####Python Flask
+#### Python Flask
 The API that will allow the mobile device and the server to communicate will be based on the Python Flask framework. Images will be sent from the mobile device to the server to be processed over the API, and the result will be sent back over the API.
 
-####Amazon Web Services (AWS)
+#### Amazon Web Services (AWS)
 The instance of OpenPose, our python gesture analysis program, and the network API will be running on an AWS server. A server with an external GPU is needed as the GPU is a serious performance bottleneck when running OpenPose on a standard server. 
 
-####Android Studio/Java/XML
+#### Android Studio/Java/XML
 The android app component of the project will be built with Android Studio using Java and XML. 
 
 
