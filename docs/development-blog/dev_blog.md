@@ -16,7 +16,7 @@ The images in the dataset need to be able to be processed by OpenPose, so I test
 
 Image too dark             |  Elbows not detected 		| Hands too small
 :-------------------------:|:-------------------------:|:-------------------------:
-![](https://....png =200x200)  |  ![](https://....png =200x200)|  ![](https://....png =200x200)
+![](./images/dark.png =200x200)  |  ![](./images/elbow.png =200x200)|  ![](./images/small.png =200x200)
 
 ### Determining how big the dataset needs to be
 
