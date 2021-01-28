@@ -4,6 +4,24 @@ This blog is to document the research and design done during the development of 
 
 _____
 
+## App Development - Colin - 28/01/2021
+The main application is build on Android Studio using Java and XML.
+
+### Starting off
+The beginning process for the app was to plan out the layout of what the UI will look like. This was relatively straightforward as there are only two interfaces that the user will interact with: the main screen with the camera preview and  a secondary setting menu screen.
+
+### Development
+When it came to developing, I put together a simple splash screen first. This displayed our logo on a simple gradient background. The splash is purely for aesthetic purposes but I believe it is a nice feature to include in the app.
+[](image/splash.png)
+Afterwards, I began with implementing a basic camera feature. Android's originally **Camera** package is outdated and is deprecated. So, I looked into Google's **Jetpack CameraX** package. However, this package is implemented in Kotlin, the new Android devleopment language. After much discussion with Paul, we decided to stick to programming in Java and use the imporved **camera2** package supplied by Android Studio.
+
+Firstly, I had to go into the app's <code>manifest.xml </code> and ask permission to use the device's camera. After that, I set up a <code>TextureView</code> in the MainActivity. This allows a preview screen to appear on the device's screen, and a simple button to capture a image <code>onClick</code>.
+
+Using Ansdroid Studio's online libraries and documents on **camera2**, I implemented a basic image capturing camera.
+[](image/basic_camera.png)
+
+Next stage is to implement a way to safely store these images into an easily accessably folder.
+
 ## Dataset Collection - Paul - 22/01/2021
 
 In order to train a classifier to recognise hand gestures, we need a large training set of hand gesture images. We decided to gather our own training set.
