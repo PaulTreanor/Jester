@@ -10,7 +10,7 @@ def generate_fieldnames():
 	fieldnames = ["image_name"]
 	i = 0
 	while i <= 20:
-		fieldnames.extend(["point_" + str(i) + "_x", "point_" + str(i) + "_x", "point_" + str(i) + "_conf"])
+		fieldnames.extend(["point_" + str(i) + "_x", "point_" + str(i) + "_y", "point_" + str(i) + "_conf"])
 		i+=1 
 	return fieldnames
 
