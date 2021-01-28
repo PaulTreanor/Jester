@@ -34,6 +34,23 @@ def jsonToCsv(fieldnames, json_path):
 			gesture_data = getJsonData(file, json_path)
 			csv_writer.writerow(gesture_data)
 
+def cleanedDataset():
+	with open("gesture_dataset.csv", "r", newline='') as dataset:
+		csv_reader = csv.reader(dataset)
+
+		#create and open new csv file
+		with open('cleaned_dataset.csv', 'w', newline='') as cleaned_dataset:
+			csv_writer = csv.writer(cleaned_dataset)
+			for line in csv_reader:
+				clean_line = True
+				#line is not clean if any attributes have empty value ("0")
+				for attribute in line:
+					if attribute == "0":
+						clean_line = False
+				#only write clean lines
+				if clean_line == True:
+					csv_writer.writerow(line)
+
 
 if __name__ == '__main__':
 	fieldnames = generate_fieldnames()
@@ -41,3 +58,6 @@ if __name__ == '__main__':
 
 	#write json data into csv dataset
 	jsonToCsv(fieldnames, json_path)
+
+	#clean dataset
+	cleanedDataset()
