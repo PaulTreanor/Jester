@@ -49,6 +49,8 @@ def cleanedDataset():
 						clean_line = False
 				#only write clean lines
 				if clean_line == True:
+					#remove confidence measures from coordinates
+					del line[3::3]
 					csv_writer.writerow(line)
 
 
