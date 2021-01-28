@@ -12,13 +12,16 @@ The beginning process for the app was to plan out the layout of what the UI will
 
 ### Development
 When it came to developing, I put together a simple splash screen first. This displayed our logo on a simple gradient background. The splash is purely for aesthetic purposes but I believe it is a nice feature to include in the app.
-![](images/splash.png)
+
 Afterwards, I began with implementing a basic camera feature. Android's originally **Camera** package is outdated and is deprecated. So, I looked into Google's **Jetpack CameraX** package. However, this package is implemented in Kotlin, the new Android devleopment language. After much discussion with Paul, we decided to stick to programming in Java and use the imporved **camera2** package supplied by Android Studio.
 
 Firstly, I had to go into the app's <code>AndroidManifest.xml</code> and ask permission to use the device's camera. After that, I set up a <code>TextureView</code> in the MainActivity. This allows a preview screen to appear on the device's screen, and a simple button to capture a image <code>onClick</code>.
 
 Using Ansdroid Studio's online libraries and documents on **camera2**, I implemented a basic image capturing camera.
-![](images/basic_camera.png)
+
+Splash Screen             |  MainActivity 		| 
+:-------------------------:|:--------------------
+![](images/splash.png)  |  ![](images/basic_camera.png)
 
 Next stage is to implement a way to safely store these images into an easily accessably folder.
 
