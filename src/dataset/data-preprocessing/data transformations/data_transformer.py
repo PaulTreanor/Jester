@@ -4,6 +4,17 @@ import csv
 def translate(hand_gesture):
 	x_dif = hand_gesture[1]
 	y_dif = hand_gesture[2]
+	x = gesture[1::2] 
+	y = gesture[2::2]
+
+	hand_gesture = [hand_gesture[0]]
+	i = 0 
+	while i < len(x):
+		#do x thing 
+		#add x to new list
+		#do y thing 
+		#add y to new list 
+	print(hand_gesture)
 	
 
 	return hand_gesture
@@ -22,7 +33,7 @@ def transform_dataset():
 				line = translate(line)
 				#enlargement 
 				#rotation
-				csv_writer.writerow(line)
+			#	csv_writer.writerow(line)
 
 
 
