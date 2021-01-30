@@ -74,7 +74,7 @@ def transform_dataset():
 
 		with open('transformed_dataset.csv', 'w', newline='') as transformed_dataset:
 			csv_writer = csv.writer(transformed_dataset)
-			csv_writer.writerow(next(csv_reader))
+			csv_writer.writerow(next(csv_reader) + ["class_name"])
 			firstline = True
 			for line in csv_reader:
 				if firstline:    #skip first line
@@ -88,7 +88,14 @@ def transform_dataset():
 				line = enlarge(line)
 				#rotation
 				line = rotate(line)
-				csv_writer.writerow(line)
+				#print(line)
+				if line[0][0:2] == "pa":
+					class_name = "palm"
+				if line[0][0:2] == "pe":
+					class_name = "peace"
+				if line[0][0:2] == "th":
+					class_name = "thumbs_up"
+				csv_writer.writerow(line + [class_name])
 
 
 
