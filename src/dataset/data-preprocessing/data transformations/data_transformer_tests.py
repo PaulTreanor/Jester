@@ -1,5 +1,7 @@
 import pytest 
 from data_transformer import translate
+from data_transformer import enlarge
+from data_transformer import rotate
 
 # To run all tests remove "-v -m" and the specific marker
 # python -m pytest .\data_transformer_tests.py -v -m translations
@@ -13,7 +15,7 @@ def test_object():
 
 
 @pytest.mark.translations
-def test_translations_point_0(test_object):
+def test_translation_point_0_pass(test_object):
 	translated_coords = translate(test_object)
 	x = translated_coords[1::2] 
 	y = translated_coords[2::2]
@@ -22,7 +24,7 @@ def test_translations_point_0(test_object):
 
 	
 @pytest.mark.translations
-def test_translations_point_12_pass(test_object):
+def test_translation_point_12_pass(test_object):
 	translated_coords = translate(test_object)
 	x = translated_coords[1::2] 
 	y = translated_coords[2::2]
@@ -31,15 +33,73 @@ def test_translations_point_12_pass(test_object):
 
 	
 @pytest.mark.translations
-def test_translations_point_15_fail(test_object):
+def test_translation_point_15_pass(test_object):
 	translated_coords = translate(test_object)
 	x = translated_coords[1::2] 
 	y = translated_coords[2::2]
 	#coords of translated point_15 should be (-60.708, -532.88)
-	assert [x[15], y[15]] == [-60.708, -532.88]
+	assert [x[15], y[15]] == [-60.708, -532.88] 
 
 
 ############################### ENLARGEMENT UNIT TESTS ###################################
 
-#@pytest.fixture
-#def englarged_coords():
+@pytest.fixture
+def test_object_2():
+	test_object = ['palm_108_keypoints', 0.0, 0.0, 70.825, -70.83, 128.161, -155.15, 172.005, -266.44, 249.576, -337.27, 87.689, -290.05, 84.316, -428.33, 64.08, -519.39, 37.099, -607.08, 13.49, -293.42, 0.0, -451.94, -6.746, -559.86, -26.982, -647.55, -50.59, -293.42, -53.963, -445.19, -60.708, -532.88, -74.199, -613.83, -111.298, -276.56, -131.534, -391.23, -131.534, -451.94, -131.534, -522.77]
+	return test_object
+
+@pytest.mark.enlargements
+def test_enlargement_point_0(test_object_2):
+	englarged_coords = enlarge(test_object_2)
+	x = englarged_coords[1::2] 
+	y = englarged_coords[2::2]
+	assert [x[0], y[0]] == [0,0] 
+
+@pytest.mark.enlargements
+def test_enlargement_point_12_pass(test_object_2):
+	englarged_coords = enlarge(test_object_2)
+	x = englarged_coords[1::2] 
+	y = englarged_coords[2::2]
+	#
+	#assert [x[12], y[12]] == [-0.9185989068802104, -22.045760957315256]
+	assert [x[12], y[12]] == [-0.919,-22.046]
+
+
+@pytest.mark.enlargements
+def test_enlargement_point_15_pass(test_object_2):
+	englarged_coords = enlarge(test_object_2)
+	x = englarged_coords[1::2] 
+	y = englarged_coords[2::2]
+	#assert  [-2.0667964731629906, -18.141834760148488]		#
+	assert  [-2.067, -18.142]		
+
+############################### ROTATION UNIT TESTS ###################################
+
+@pytest.fixture
+def test_object_3():
+	test_object = ['palm_108_keypoints', 0.0, 0.0, 2.411228507145167, -2.411398731536776, 4.363225650606873, -5.282062871635336, 5.855889295750152, -9.070917380074244, 8.496784552054532, -11.48231611161102, 2.985361335164879, -9.87471695725317, 2.8705279605852723, -14.582442731598862, 2.1815958028642757, -17.682569351586704, 1.2630309408623868, -20.667964731629908, 0.45926540856178333, -9.989448197197811, 0.0, -15.386242308777788, -0.22966674915921353, -19.060365577272055, -0.9185989068802104, -22.045760957315256, -1.7223303943024924, -9.989448197197811, -1.837163768882099, -15.156439380105287, -2.0667964731629906, -18.141834760148488, -2.526095926603096, -20.89776766030241, -3.789126867465483, -9.415451548691387, -4.47805902518648, -13.319377745858155, -4.47805902518648, -15.386242308777788, -4.47805902518648, -17.797641040314563]
+	return test_object
+
+@pytest.mark.rotations
+def test_rotation_point_0_pass(test_object_3):
+	rotated_coords = rotate(test_object_3)
+	x = rotated_coords[1::2] 
+	y = rotated_coords[2::2]
+	assert [x[0], y[0]] == [0,0] 
+
+@pytest.mark.rotations
+def test_rotation_point_12_pass(test_object_3):
+	rotated_coords = rotate(test_object_3)
+	x = rotated_coords[1::2] 
+	y = rotated_coords[2::2]
+	#assert [x[12], y[12]] == [1.93011516073987, 21.9803106348634]
+	assert [x[12], y[12]] == [1.93, 21.98]
+
+
+@pytest.mark.rotations
+def test_rotation_point_15_pass(test_object_3):
+	rotated_coords = rotate(test_object_3)
+	x = rotated_coords[1::2] 
+	y = rotated_coords[2::2]
+	#assert [x[15], y[15]] == [2.89780734559924,18.0277710411965]
+	assert [x[15], y[15]] ==[2.898, 18.028]

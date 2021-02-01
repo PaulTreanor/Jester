@@ -2,35 +2,43 @@ import csv
 from gesture_plotter import plot
 import math
 
-#euclidean distance
+
+# Euclidean distance
 def dist(p1, p2):
 	return math.sqrt((p1[0]-p2[0])**2 + (p1[1]-p2[1])**2)
 
 
+def findDegrees(point_9):
+	dotproduct = sum((a*b) for a, b in zip((0,10), point_9))
+	degrees = math.acos(dotproduct / 100)
+	return degrees 
+
+
+# Translate all coordinates so that point 0 is on the origin
 def translate(hand_gesture):
 	x_dif = hand_gesture[1]
 	y_dif = hand_gesture[2]
 	x = hand_gesture[1::2] 
 	y = hand_gesture[2::2]
 
-	#can remove [i] within the while loop I think#####################
 	hand_gesture = [hand_gesture[0]]
 	i = 0
 	while i < len(x):
-		x[i] = round(x[i] - x_dif, 3)	
-		hand_gesture.append(x[i])
+		new_x = round(x[i] - x_dif, 3)	
+		hand_gesture.append(new_x)
 
-		y[i] = round(y[i] - y_dif, 3)		
-		hand_gesture.append(y[i])
+		new_y = round(y[i] - y_dif, 3)		
+		hand_gesture.append(new_y)
 		i += 1
 	return hand_gesture
 
 
-def enlarge(hand_gesture):  ##########################add rounding to this shit ...or leave it to the end? 
+# Normalise the distances between point 0 and point 9 to 10 units
+def enlarge(hand_gesture): 
 	x = hand_gesture[1::2] 
 	y = hand_gesture[2::2]
-	# find the scale factor 
-	# we want to normalise the distances between point 0 and point 9 to 10 units
+
+	# Find the scale factor 	
 	p_0 = (x[0], y[0])
 	p_9 = (x[9], y[9])
 	scale_factor = 10/dist(p_0, p_9)
@@ -38,34 +46,30 @@ def enlarge(hand_gesture):  ##########################add rounding to this shit 
 	i = 1
 	while i < len(hand_gesture):
 		hand_gesture[i] = hand_gesture[i]*scale_factor
+		hand_gesture[i] = round(hand_gesture[i], 3)
 		i +=1
-	return hand_gesture
- 
+	return hand_gesture 
 
+
+# Rotate around origin so that point 0 and point 9 are both on y axis for each gesture 
 def rotate(hand_gesture):
 	x = hand_gesture[1::2] 
 	y = hand_gesture[2::2]
 	hand_gesture = [hand_gesture[0]]
-	#how much does it need to be rotated by? 
-	p_9 = (x[9], y[9])
-	dotproduct = sum((a*b) for a, b in zip((0,10), p_9))
 
-	degrees = math.acos(dotproduct / 100)
-	#degrees = degrees * math.pi / 180
-
-	#rotate it by that much 
+	# Find how much to rotate by 
+	point_9 = (x[9], y[9])
+	degrees = findDegrees(point_9)
+	
+	# Rotate points by degrees and add them to list
 	i = 0
 	while i < len(x):
-		#rotate x and y
 		tmp = x[i]
-		x[i] = math.cos(degrees) * x[i] - math.sin(degrees) * y[i]
-		y[i] = math.sin(degrees) * tmp + math.cos(degrees) * y[i]
-		#add x and y to list 
+		x[i] = round((math.cos(degrees) * x[i] - math.sin(degrees) * y[i]),3)
+		y[i] = round((math.sin(degrees) * tmp + math.cos(degrees) * y[i]),3)#
 		hand_gesture.extend([x[i], y[i]])
 		i+=1
 	return hand_gesture
-
-
 
 
 def transform_dataset():
@@ -77,24 +81,23 @@ def transform_dataset():
 			csv_writer.writerow(next(csv_reader) + ["class_name"])
 			firstline = True
 			for line in csv_reader:
-				if firstline:    #skip first line
+				# Skip header line 
+				if firstline:    
 					firstline = False
 					continue
-				#convert coords from string to floats
+				# Convert coords from string to floats
 				line = [line[0]] + [float(item) for item in line[1:]]
-				#translate coordinates
+				# Appy transformations to line
 				line = translate(line)
-				#enlargement 
 				line = enlarge(line)
-				#rotation
 				line = rotate(line)
-				#print(line)
-				if line[0][0:2] == "pa":
-					class_name = "palm"
-				if line[0][0:2] == "pe":
-					class_name = "peace"
-				if line[0][0:2] == "th":
-					class_name = "thumbs_up"
+
+				# Add class names
+				class_names = ["palm", "peace", "thumbs_up"]
+				for name in class_names:
+					if line[0][0:2] == name[0:2]:
+						class_name = name
+				
 				csv_writer.writerow(line + [class_name])
 
 
