@@ -4,6 +4,45 @@ This blog is to document the research and design done during the development of 
 
 _____
 
+
+
+## Data-preprocessing - Paul - 02/02/2021
+
+In order to use our dataset to create a classifier, the images needed to be processed by OpenPose and then preprocessed to make the data more consistent, complete, and interpretable.  
+
+### Getting OpenPose output
+Our dataset of images was stored in 3 folders (1 for each class). We labelled each image file with a class name using simple python program that renames images with the format *fileName+ imageNumber*.  This will make supervised machine learning possible later. 
+
+We used the pose detection library [OpenPose](https://github.com/CMU-Perceptual-Computing-Lab/openpose) to extract keypoint data from the images in our dataset. By default OpenPose takes a folder as input and processes all images within that folder. We found that  if more than 2 or 3 images were in a folder OpenPose would throw an "out of memory" error and crash. This error occured on both our machines with several version of OpenPose. 
+
+To fix this we wrote *batch_image_processor.py* which iterates through our dataset and places each image in its own folder, then writes a line to a batch file to run OpenPose on that folder. The batchfile runs OpenPose automatically for all the folders, and doesn't crash because the input folders only contain one image each.
+
+When the batch file OpenPose returned a json file of keypoint data for each image.   
+
+### Data cleaning 
+Data cleaning is an important part of data preprocessing where inconsistent data is removed [1]. In our case this meant removing items from the dataset with no keypoint data. These were blurry images which OpenPose couldn't process. 
+
+The program *data_cleaning.py* iterates through all the OpenPose output JSON files and adds the right hand keypoint data to a *gesture_dataset.csv* file. Files that contain no values for right hand keypoint coordinates were removed. 
+
+### Data transformations
+Data transformations were carried to change the data into a homogeneous form that would allow for more accurate machine learning [1]. We carried out transformations on the dataset to normalise the size of the keypoint distribution and place the keypoints in the same position and orientation.
+
+The program *data_tranformer.py* applies a translation, an enlargement, and a rotation to each tuple in the dataset. These transformations move the keypoint 0 to the origin, normalise the distance between *point 0* and *point 9* to 10 units, and rotate the coordinates around the origin so that *point 0* and *point 9* both lie on the y axis. 
+
+OpenPose hand keypoint labels |
+:-------------------------:
+![](images/keypoints_hand.png) |
+
+Coordinates before transformations	             |  Coordinates after transformations	
+:-------------------------:|:-------------------------:
+![](images/before.png)  |  ![](images/after.png)
+
+In addition to the transformation program we also wrote unit tests for the functions in the program. It is vital that the transformations work the way they are supposed to in order for the classifier to be accurate. 
+
+### References  
+ 1. Han, J. Kamber, M. Pei, J. (2012). Data Mining Concepts and Techniques. Waltham, USA: Morgan Kaufmann, pages 85 & 111
+
+
 ## App Development - Colin - 28/01/2021
 The main application is build on Android Studio using Java and XML.
 
