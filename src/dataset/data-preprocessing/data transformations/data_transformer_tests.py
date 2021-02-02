@@ -19,7 +19,7 @@ def test_translation_point_0_pass(test_object):
 	translated_coords = translate(test_object)
 	x = translated_coords[1::2] 
 	y = translated_coords[2::2]
-	#point_0_x and point_0_y must = 0   
+	# point_0_x and point_0_y must = 0   
 	assert [x[0], y[0]] == [0,0]
 
 	
@@ -28,7 +28,7 @@ def test_translation_point_12_pass(test_object):
 	translated_coords = translate(test_object)
 	x = translated_coords[1::2] 
 	y = translated_coords[2::2]
-	#check x and y of point 12
+	# Check x and y of point 12
 	assert [x[12], y[12]] == [-26.982, -647.55]
 
 	
@@ -37,7 +37,7 @@ def test_translation_point_15_pass(test_object):
 	translated_coords = translate(test_object)
 	x = translated_coords[1::2] 
 	y = translated_coords[2::2]
-	#coords of translated point_15 should be (-60.708, -532.88)
+	# Check x and y of point 15
 	assert [x[15], y[15]] == [-60.708, -532.88] 
 
 
@@ -60,8 +60,6 @@ def test_enlargement_point_12_pass(test_object_2):
 	englarged_coords = enlarge(test_object_2)
 	x = englarged_coords[1::2] 
 	y = englarged_coords[2::2]
-	#
-	#assert [x[12], y[12]] == [-0.9185989068802104, -22.045760957315256]
 	assert [x[12], y[12]] == [-0.919,-22.046]
 
 
@@ -70,7 +68,6 @@ def test_enlargement_point_15_pass(test_object_2):
 	englarged_coords = enlarge(test_object_2)
 	x = englarged_coords[1::2] 
 	y = englarged_coords[2::2]
-	#assert  [-2.0667964731629906, -18.141834760148488]		#
 	assert  [-2.067, -18.142]		
 
 ############################### ROTATION UNIT TESTS ###################################
@@ -92,7 +89,6 @@ def test_rotation_point_12_pass(test_object_3):
 	rotated_coords = rotate(test_object_3)
 	x = rotated_coords[1::2] 
 	y = rotated_coords[2::2]
-	#assert [x[12], y[12]] == [1.93011516073987, 21.9803106348634]
 	assert [x[12], y[12]] == [1.93, 21.98]
 
 
@@ -101,5 +97,4 @@ def test_rotation_point_15_pass(test_object_3):
 	rotated_coords = rotate(test_object_3)
 	x = rotated_coords[1::2] 
 	y = rotated_coords[2::2]
-	#assert [x[15], y[15]] == [2.89780734559924,18.0277710411965]
 	assert [x[15], y[15]] ==[2.898, 18.028]
