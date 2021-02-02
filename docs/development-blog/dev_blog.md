@@ -35,7 +35,7 @@ OpenPose hand keypoint labels |
 
 Coordinates before transformations	             |  Coordinates after transformations	
 :-------------------------:|:-------------------------:
-![](images/before.png)  |  ![](images/after.png)
+![](images/before.png width=200)  |  ![](images/after.png)
 
 In addition to the transformation program we also wrote unit tests for the functions in the program. It is vital that the transformations work the way they are supposed to in order for the classifier to be accurate. 
 
