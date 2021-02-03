@@ -9,14 +9,18 @@ import os
 def getClass():
 
 	image_path = 'C:\\Users\\trean\\Desktop\\College\\4YP\\2021-ca400-ptreanor-cgorman\\src\\server-side\\image'
-	output_path = 'C:\\Users\\trean\\Desktop\\College\\4YP\2021-ca400-ptreanor-cgorman\\src\\server-side\\classifier\\openposeJSON'
+	output_path = 'C:\\Users\\trean\\Desktop\\College\\4YP\\2021-ca400-ptreanor-cgorman\\src\\server-side\\classifier\\openposeJSON'
 
 	# Write openpose command 
 
-	command = 'C:\\Users\\trean\\Documents\\openpose_1.6\\openpose\\bin\\OpenPoseDemo.exe --image_dir ' + image_path + ' --hand --net_resolution "-1x320" --write_json ' + output_path + '\n'
+	command = 'bin\\OpenPoseDemo.exe --image_dir ' + image_path + ' --hand --net_resolution "-1x320" --write_json ' + output_path + '\n'
 
 	# Run command 
+	# Go to openpose directory - or it won't run 
+	os.chdir('C:\\Users\\trean\\Documents\\openpose_1.6\\openpose')
 	os.system(command)
+
+
 	# Read in json					######## Might start the program from here 
 		# Change format 
 		# Save line as list 
@@ -32,7 +36,7 @@ def getClass():
 	# Delete image from server 
 
 
-	classification = "herlo"
+	classification = "placeholder"
 
 	return classification
 
