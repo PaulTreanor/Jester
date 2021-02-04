@@ -1,6 +1,4 @@
-
 import math
-
 
 # Euclidean distance
 def dist(p1, p2):

@@ -5,18 +5,16 @@ from classifier import classify
 import time
 
 # Gestures below min conf are likely to be OOD 
-min_conf = 0
+min_conf = -1.3																																						# Placeholder value found with trial and error 
 
-# Global to allow for easier and faster testing
+# Global paths only used when running program directly
 image_path = 'C:\\Users\\trean\\Desktop\\College\\4YP\\2021-ca400-ptreanor-cgorman\\src\\server-side\\image'
 output_path = 'C:\\Users\\trean\\Desktop\\College\\4YP\\2021-ca400-ptreanor-cgorman\\src\\server-side\\classifier\\openposeJSON'
 
+# Write and run OpenPose command
 def runOpenPose(image_path=image_path):
-	# Openpose command 
 	command = 'bin\\OpenPoseDemo.exe --image_dir ' + image_path + ' --hand --net_resolution "-1x320" --write_json ' + output_path + '\n'
-	# Go to openpose directory - or it won't run 
 	os.chdir('C:\\Users\\trean\\Documents\\openpose_1.6\\openpose')
-	# Run command 
 	os.system(command)
 
 
@@ -30,16 +28,26 @@ def getJsonData():
 		return gesture_data	
 
 
+def processGestureData(gesture_data):
+	gesture_data = [gesture_data[0]] + [float(val) for val in gesture_data[1:]]
+	# Carry out tranformations on the line
+	gesture_data = translate(gesture_data)
+	gesture_data = enlarge(gesture_data)
+	gesture_data = rotate(gesture_data)
+	
+	return gesture_data
+
+
 def getClass(image_path=image_path):
-	# Run OpenPose from different directory 
+	# Run OpenPose from it's own directory or it won't work
 	cwd = os.getcwd() 
 	runOpenPose(image_path)
 	os.chdir(cwd)
 
 	gesture_data = getJsonData()
 
-	# Check OpenPose confidence values meet minimum value                          maybve a sum value would work well for this 
-	min_total = 5                                        # Placeholder 
+	# Check OpenPose's keypoint confidence values meet minimum value             											  
+	min_total = 5                                        																										# Placeholder value found with trial and error
 	total = 0
 	for val in gesture_data[3::3]:
 		total += val
@@ -54,26 +62,18 @@ def getClass(image_path=image_path):
 		if val == "0":
 			return "OOD"
 
-	gesture_data = [gesture_data[0]] + [float(val) for val in gesture_data[1:]]
-	
-	# Carry out tranformations on the line
-	gesture_data = translate(gesture_data)
-	gesture_data = enlarge(gesture_data)
-	gesture_data = rotate(gesture_data)
+	gesture_data = processGestureData(gesture_data)
 
 	# Put line into classifier 
 	classification, conf = classify(gesture_data)
 
-	#print(conf)
 	# Check if confidence value is acceptable
-	#if conf < min_conf():
-	#	return "OOD"
+	if conf < min_conf:
+		return "OOD"
 
 	# Delete image from server 
 	#os.remove(image_path + 'image.jpg')
-
 	return classification
-
 
 
 

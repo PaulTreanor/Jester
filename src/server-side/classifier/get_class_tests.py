@@ -28,7 +28,6 @@ def test_thumbs_up_classification():
 	assert classification == 'thumbs_up'
 
 
-
 ############## OUT OF DISTRIBUTION UNIT TESTS ######################
 
 #@pytest.mark.outOfDistribution

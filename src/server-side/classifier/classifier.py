@@ -1,39 +1,28 @@
-import numpy as np 
 import pandas as pd 
-from sklearn.model_selection import train_test_split
-from sklearn import metrics 
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.neighbors import LocalOutlierFactor
-from sklearn.svm import SVC
-#from sklearn.cross_validation import train_test_split
 
 def knn():
-	model = SVC(probability=True)
 	df = pd.read_csv("transformed_dataset.csv")
 	x = df.drop(["image_name", "class_name"], axis=1)
 	y = df.class_name
 
-	x_train, x_test, y_train, y_test = train_test_split(x, y, test_size = 0.1, random_state = 1)
+	# Accuracy tends to be higher when n is low
+	clf = KNeighborsClassifier(n_neighbors=5)
+	clf.fit(x, y)
 
-	#more accurate with n is low
-	clf = KNeighborsClassifier(n_neighbors=550)
-	clf.fit(x_train, y_train)
-	#y_pred = clf.predict(x_test)
-
-	#print("accuracy:", metrics.accuracy_score(y_test, y_pred))
-
-
+	# Find conf value to recognise OOD images
 	lof = LocalOutlierFactor(novelty=True)
-	lof.fit(x_train)
+	lof.fit(x)
 
 	return clf, lof
+
 
 def classify(gesture_data):
 	clf, lof = knn()
 	classification = clf.predict([gesture_data[1:]])
 	conf = lof.decision_function([gesture_data[1:]])
-
-	return classification[0], conf
+	return classification[0], conf[0]
 
 
 if __name__ == "__main__":
