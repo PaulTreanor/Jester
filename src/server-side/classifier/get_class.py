@@ -5,7 +5,9 @@ from classifier import classify
 import time
 
 # Gestures below min conf are likely to be OOD 
-min_conf = -1.3																																						# Placeholder value found with trial and error 
+min_conf = -1.3																																				# Placeholder value found with trial and error - "-1.3" "works well
+																																							# -13 lets false positives throught
+
 
 # Global paths only used when running program directly
 image_path = 'C:\\Users\\trean\\Desktop\\College\\4YP\\2021-ca400-ptreanor-cgorman\\src\\server-side\\image'
@@ -64,8 +66,9 @@ def getClass(image_path=image_path):
 			return "OOD"
 
 	gesture_data = processGestureData(gesture_data)
-
+	gesture_data = [gesture_data[1:]]
 	# Put line into classifier 
+	print(gesture_data)
 	classification, conf = classify(gesture_data)
 
 	# Check if confidence value is acceptable
