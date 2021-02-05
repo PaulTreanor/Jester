@@ -7,8 +7,8 @@ def knn():
 	x = df.drop(["image_name", "class_name"], axis=1)
 	y = df.class_name
 
-	# Accuracy tends to be higher when n is low
-	clf = KNeighborsClassifier(n_neighbors=5)
+	# Accuracy drops slighty if k > 5
+	clf = KNeighborsClassifier(n_neighbors=4)
 	clf.fit(x, y)
 
 	# Find conf value to recognise OOD images
