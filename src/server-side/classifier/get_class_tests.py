@@ -27,6 +27,25 @@ def test_thumbs_up_classification():
 	classification = getClass(image_path)
 	assert classification == 'thumbs_up'
 
+@pytest.mark.inDistribution
+def test_alt_peace_classification():
+	image_path = 'C:\\Users\\trean\\Desktop\\College\\4YP\\2021-ca400-ptreanor-cgorman\\src\\server-side\\test-images\\alt-peace'
+	classification = getClass(image_path)
+	assert classification == 'peace'
+
+@pytest.mark.inDistribution
+def test_alt_palm_classification():
+	image_path = 'C:\\Users\\trean\\Desktop\\College\\4YP\\2021-ca400-ptreanor-cgorman\\src\\server-side\\test-images\\alt-palm'
+	classification = getClass(image_path)
+	assert classification == 'palm'
+
+@pytest.mark.inDistribution
+def test_alt_thumbs_up_classification():
+	image_path = 'C:\\Users\\trean\\Desktop\\College\\4YP\\2021-ca400-ptreanor-cgorman\\src\\server-side\\test-images\\alt-thumbs-up'
+	classification = getClass(image_path)
+	assert classification == 'thumbs_up'
+
+
 
 ############## OUT OF DISTRIBUTION UNIT TESTS ######################
 
@@ -48,3 +67,10 @@ def test_no_hand_classification():
 	image_path = 'C:\\Users\\trean\\Desktop\\College\\4YP\\2021-ca400-ptreanor-cgorman\\src\\server-side\\test-images\\no-hand'
 	classification = getClass(image_path)
 	assert classification == 'OOD'
+
+@pytest.mark.outOfDistribution
+def test_alt_ood_classification():
+	image_path = 'C:\\Users\\trean\\Desktop\\College\\4YP\\2021-ca400-ptreanor-cgorman\\src\\server-side\\test-images\\alt-ood'
+	classification = getClass(image_path)
+	assert classification == 'OOD'
+

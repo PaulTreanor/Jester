@@ -46,8 +46,9 @@ def getClass(image_path=image_path):
 
 	gesture_data = getJsonData()
 
-	# Check OpenPose's keypoint confidence values meet minimum value             											  
-	min_total = 5                                        																										# Placeholder value found with trial and error
+	# Check OpenPose's keypoint confidence values meet minimum value   
+	# Default threshold for displaying in OpenPose is 0.5 (sum of 10.5 for 21 total keypoints). This value is conservative and work better for this application.     											  
+	min_total = 5                                        																		
 	total = 0
 	for val in gesture_data[3::3]:
 		total += val
@@ -70,6 +71,8 @@ def getClass(image_path=image_path):
 	# Check if confidence value is acceptable
 	if conf < min_conf:
 		return "OOD"
+
+	print(conf)
 
 	# Delete image from server 
 	#os.remove(image_path + 'image.jpg')
