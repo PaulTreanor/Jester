@@ -5,7 +5,8 @@ from classifier import classify
 import time
 
 # Gestures below min conf are likely to be OOD 
-min_conf = -1.3																																				# Placeholder value found with trial and error - "-1.3" "works well
+# min_conf = -1.3		
+min_conf = -25																																		# Placeholder value found with trial and error - "-1.3" "works well
 																																							# -13 lets false positives throught
 
 

@@ -12,23 +12,37 @@ def get_distance(line_feeature, gesure_features):
 	distance = math.sqrt(sum(listy))
 	return distance 
 
+def get_conf_knn(nn):
+	distances = [item[0] for item in nn]
+	avg_dist = sum(distances)/len(distances)
+	return avg_dist
+
+def get_conf_kth_nn(nn):
+	distances = [item[0] for item in nn]
+	return max(distances)
+
+# LDOF anomoly identifier 90% accurate at detecting OODs when min_conf = -25. That is max accuracy value
+def get_conf_ldofs(nn):
+	knn_avg = get_conf_knn(nn)
+	knn_inner_distances = []
+	for item in nn:
+		neighbours = [line[0] for line in nn if line != item]
+		distances = [distance.euclidean(item[0], line) for line in neighbours]
+		knn_inner_distances += distances
+	knn_inner_distance_avg = sum(knn_inner_distances)/len(knn_inner_distances)
+	ldof = knn_avg/knn_inner_distance_avg
+	return ldof
+
+
+
+
+
 class knn:
 	def __init__(self, k=5):
 		self.k = k
 
-
-
-	# Creating fit method so the classifier can be classed from same method as the library classifier, which uses a fit method
-	# both paramaters are pd dataframes
-	#def fit(features, classifications):
-	#	self.features = features 
-	#	self.classifications = classifications
-
-
-
-
 	def get_knn(self, gesture_data):
-		#nn is list of k nearest neighbours tuples in the form (distance, class_name)
+		# nn is list of k nearest neighbours tuples in the form (distance, class_name, feature_coordinates)
 		nn = []
 		# Note: CSV path needs to change if calling from __main__
 		with open("transformed_dataset.csv", "r", newline="") as dataset:
@@ -45,28 +59,33 @@ class knn:
 				gesture_data = [float(item) for item in gesture_data]
 
 			
-				#distance = get_distance(features, gesture_data)
+				#dist = get_distance(features, gesture_data)
 				dist = distance.euclidean(features, gesture_data)
 				
 				if len(nn) < self.k:
-					nn.append((dist, class_name))
+					nn.append((dist, class_name, features))
 				else:
 					distance_list = [item[0] for item in nn]
 					min_index = distance_list.index(max(distance_list))
 					if nn[min_index][0] > dist:
-						nn[min_index] = (dist, class_name)
+						nn[min_index] = (dist, class_name, features)
 			return nn
 
 
 	def predict(self, gesture_data):	# Gesture data will be list of lists	
 		# List of k nearest neighbours in the form (distance, classification)
 		nn = self.get_knn(gesture_data[0])
-		print(nn)
-		# Get most common class name (what do if 2 have same # of occurances?)
+		#print(nn)
+		# Get most common class name
 		class_list = [item[1] for item in nn]
 		most_freq_class = max(set(class_list), key=class_list.count)
-		return most_freq_class, 1   #hard coding conf value for now
 
+
+		conf = get_conf_ldofs(nn)
+		conf = -(conf)
+		print(conf)
+
+		return most_freq_class, conf
 
 
 if __name__ == '__main__':
