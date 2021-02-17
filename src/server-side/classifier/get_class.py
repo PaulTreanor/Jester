@@ -68,7 +68,7 @@ def getClass(image_path=image_path):
 	gesture_data = processGestureData(gesture_data)
 	gesture_data = [gesture_data[1:]]
 	# Put line into classifier 
-	print(gesture_data)
+	#print(gesture_data)
 	classification, conf = classify(gesture_data)
 
 	# Check if confidence value is acceptable

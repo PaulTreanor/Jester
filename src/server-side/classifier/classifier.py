@@ -2,8 +2,9 @@ import pandas as pd
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.neighbors import LocalOutlierFactor
 import csv
+from classifiers.knn import knn
 
-def knn():
+def lib_knn():
 	df = pd.read_csv("transformed_dataset.csv")
 	x = df.drop(["image_name", "class_name"], axis=1)
 	y = df.class_name
@@ -20,10 +21,12 @@ def knn():
 
 
 def classify(gesture_data):
-	clf, lof = knn()
-	classification = clf.predict(gesture_data)
-	conf = lof.decision_function(gesture_data)
-	return classification[0], conf[0]
+	#clf, lof = lib_knn()
+	clf = knn(5)
+	classification, conf = clf.predict(gesture_data)
+	#conf = lof.decision_function(gesture_data)
+	return classification, conf
+	# return classification[0], conf[0]
 
 
 # Lowest classification confidence value in the dataset will be the max value of min conf 
@@ -62,9 +65,9 @@ def find_min_conf():
 
 
 if __name__ == "__main__":
-#	test_object = ['peace_7_keypoints', '0', '0', '-2.031', '2.902', '-3.822', '6.485', '-3.108', '10.094', '-0.447', '11.963', '-2.707', '10.535', '-3.939', '14.32', '-4.366', '17.425', '-4.752', '20.21', '-0.001', '10', '0.467', '15.532', '0.921', '18.88', '1.756', '22.048', '1.964', '8.882', '2.199', '12.169', '0.179', '9.861', '-0.978', '7.693', '3.931', '7.764', '3.347', '9.546', '1.486', '8.039', '0.328', '5.872', 'peace']
-#	test_object = [float(item) for item in test_object[1:-1]]
-#	clf = knn()
-#	print(clf.predict([test_object]))
-	find_min_conf()
+	test_object = ['peace_7_keypoints', '0', '0', '-2.031', '2.902', '-3.822', '6.485', '-3.108', '10.094', '-0.447', '11.963', '-2.707', '10.535', '-3.939', '14.32', '-4.366', '17.425', '-4.752', '20.21', '-0.001', '10', '0.467', '15.532', '0.921', '18.88', '1.756', '22.048', '1.964', '8.882', '2.199', '12.169', '0.179', '9.861', '-0.978', '7.693', '3.931', '7.764', '3.347', '9.546', '1.486', '8.039', '0.328', '5.872', 'peace']
+	test_object = [float(item) for item in test_object[1:-1]]
+	clf, lof= knn()
+	print(clf.predict([test_object]))
+#	find_min_conf()
 
