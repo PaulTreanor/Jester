@@ -1,14 +1,13 @@
 import json
 import os
 from data_transformer import translate, enlarge, rotate
-from classifier import classify
 import time
+from classifiers.knn import knn
 
 # Gestures below min conf are likely to be OOD 
-# min_conf = -1.3		
-min_conf = -25																																		# Placeholder value found with trial and error - "-1.3" "works well
-																																							# -13 lets false positives throught
-
+min_conf = -1.3			#(works well with library LoF)
+# min_conf = -25		#(works with ldof from scratch)																												
+																																							
 
 # Global paths only used when running program directly
 image_path = 'C:\\Users\\trean\\Desktop\\College\\4YP\\2021-ca400-ptreanor-cgorman\\src\\server-side\\image'
@@ -68,20 +67,21 @@ def getClass(image_path=image_path):
 
 	gesture_data = processGestureData(gesture_data)
 	gesture_data = [gesture_data[1:]]
+	print(gesture_data)
 	# Put line into classifier 
 	#print(gesture_data)
-	classification, conf = classify(gesture_data)
+	#classification, conf = classify(gesture_data)
+	clf = knn()
+	classification, conf = clf.predict(gesture_data)
 
 	# Check if confidence value is acceptable
 	if conf < min_conf:
 		return "OOD"
 
-	print(conf)
 
 	# Delete image from server 
 	#os.remove(image_path + 'image.jpg')
 	return classification
-
 
 
 if __name__ == '__main__':					
