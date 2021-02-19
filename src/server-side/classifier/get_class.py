@@ -3,12 +3,15 @@ import os
 from data_transformer import translate, enlarge, rotate
 import time
 from knn import knn
-from LoF import lib_lof
+from conf_functions import lib_lof
+from conf_functions import get_conf_LoF
+
 
 # Gestures below min conf are likely to be OOD 
-min_conf = -1.3			#(works well with library LoF)
-# min_conf = -25		#(works with ldof from scratch)																												
-																																							
+#min_conf = -1.3			#(works well with library LoF)
+# min_conf = -25		#(works with ldof from scratch)			
+min_conf = -1.3																								
+k = 5																																							
 
 # Global paths only used when running program directly
 image_path = 'C:\\Users\\trean\\Desktop\\College\\4YP\\2021-ca400-ptreanor-cgorman\\src\\server-side\\image'
@@ -42,12 +45,12 @@ def processGestureData(gesture_data):
 
 
 def classify(gesture_data):
-	clf = knn()
+	clf = knn(k)
 	classification, nn = clf.predict(gesture_data)
-	#conf = lib_lof(gesture_data[0], nn)
+	conf = get_conf_LoF(gesture_data[0], nn, k)
 
-	lof = lib_lof()
-	conf = lof.decision_function(gesture_data)[0]
+	#lof = lib_lof()
+	#conf = lof.decision_function(gesture_data)[0]
 	return classification, conf
 
 def getClass(image_path=image_path):
@@ -58,8 +61,7 @@ def getClass(image_path=image_path):
 
 	gesture_data = getJsonData()
 
-	# Check OpenPose's keypoint confidence values meet minimum value   
-	# Default threshold for displaying in OpenPose is 0.5 (sum of 10.5 for 21 total keypoints). This value is conservative and work better for this application.     											  
+	# Default min threshold for displaying in OpenPose is 0.5 (sum of 10.5 for 21 total keypoints), lower value of 5 works better for this application  											  
 	min_total = 5                                        																		
 	total = 0
 	for val in gesture_data[3::3]:
@@ -77,19 +79,13 @@ def getClass(image_path=image_path):
 
 	gesture_data = processGestureData(gesture_data)
 	gesture_data = [gesture_data[1:]]
-	print(gesture_data)
-	# Put line into classifier 
 	#print(gesture_data)
-	#classification, conf = classify(gesture_data)
 
 	classification, conf = classify(gesture_data)
-
-	
 
 	# Check if confidence value is acceptable
 	if conf < min_conf:
 		return "OOD"
-
 
 	# Delete image from server 
 	#os.remove(image_path + 'image.jpg')

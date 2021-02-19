@@ -3,15 +3,14 @@ import csv
 import math
 from scipy.spatial import distance
 #from classifiers.anomoly_detection import get_conf_ldofs
-import conf_functions 
 from sklearn.neighbors import LocalOutlierFactor
 
 
 class knn:
 	# CLASS VARIABLES 
-	k = 5
-	def __init__(self):
-		pass
+	#k = 3
+	def __init__(self, k=5):
+		self.k = k
 
 	def get_knn(self, gesture_data):
 		# nn is list of k nearest neighbours tuples in the form (distance, class_name, feature_coordinates, filename)

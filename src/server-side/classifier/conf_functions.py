@@ -1,6 +1,9 @@
 from __future__ import division
-
+import pandas as pd 
+import csv
+from sklearn.neighbors import LocalOutlierFactor
 from scipy.spatial import distance
+from knn import knn
 
 ############# SIMPLE KNN ANOMOLY DETECTION ALGORITHMS #####################
 
@@ -29,48 +32,63 @@ def get_conf_ldofs(nn):
 	return ldof
 
 
+############ LIBRARY LOF #############
+
+def lib_lof():
+	df = pd.read_csv("transformed_dataset.csv")
+	x = df.drop(["image_name", "class_name"], axis=1)
+	y = df.class_name
+
+	# Find conf value to recognise OOD images
+	lof = LocalOutlierFactor(novelty=True)
+	lof.fit(x)
+
+	return lof
+
+
+
+
 ############# LoF ALGORITHM #####################
 
-def rDistance(A, B):
-	from classifiers.knn import knn 
-
-	k=5
+def rDistance(A, B, k):
 	B_clf = knn()
 	B_nns = B_clf.get_knn(B[2])
 #	print(len(B[2]), "\n", len(B_nns[0][2]))
+	if len(A) ==3:
+		A = A[2]
+	
 	k_dist = max([distance.euclidean(B[2], n[2]) for n in B_nns])
-
 	AB_dist = distance.euclidean(A, B[2])
 	r_distance = max(k_dist, AB_dist)
 	#print(r_distance)
-	print("finished rDistance")
 	return r_distance
 
-def lrd(A, nn):
-	k = 5
+def lrd(A, nn, k):
 	r_distance_list = []
 	for B in nn:
 		try:
-			B_r_distance = rDistance(A, B)
+			B_r_distance = rDistance(A, B, k)
+			######an error is thrown here 
+			#if nn[0][0] == 19.616942983044023:
+			#	print("dsafkiljfdsakljfdsakljsfdaklfdsakljfdsakljkljfdsadskljfakljfds")
 			r_distance_list.append(B_r_distance)
 		except Exception:
 			continue
-	print("r_distance_list: ", r_distance_list)
 	avg_r_distance = sum(r_distance_list)/k
-	lrd = 1/avg_r_distance 
+	lrd = 1.0/avg_r_distance 
 	return lrd
 
-def get_conf_LoF(A, nn):
-	from classifiers.knn import knn
-	k = 5
-	A_lrd = lrd(A, nn)
+def get_conf_LoF(A, nn, k):
+	A_lrd = lrd(A, nn, k)
 	lrd_list = []
 	for B in nn:
 		B_clf = knn()
 		B_nns = B_clf.get_knn(B[2])	
-		B_lrd = lrd(B, B_nns)
+		#print("B_nns: ", B_nns)
+		B_lrd = lrd(B, B_nns, k)
 		lrd_list.append(B_lrd)
 	lrd_total = sum(lrd_list)
-	divisor = lrd(A)*k
+	divisor = A_lrd*k
 	lof = lrd_total/divisor
+	print(lof)
 	return lof
