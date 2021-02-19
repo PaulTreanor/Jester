@@ -1,3 +1,5 @@
+from __future__ import division
+
 from scipy.spatial import distance
 
 ############# SIMPLE KNN ANOMOLY DETECTION ALGORITHMS #####################
@@ -35,10 +37,12 @@ def rDistance(A, B):
 	k=5
 	B_clf = knn()
 	B_nns = B_clf.get_knn(B[2])
-	print(len(B[2]), "\n", len(B_nns[0][2]))
+#	print(len(B[2]), "\n", len(B_nns[0][2]))
 	k_dist = max([distance.euclidean(B[2], n[2]) for n in B_nns])
+
 	AB_dist = distance.euclidean(A, B[2])
 	r_distance = max(k_dist, AB_dist)
+	#print(r_distance)
 	print("finished rDistance")
 	return r_distance
 
@@ -50,8 +54,10 @@ def lrd(A, nn):
 			B_r_distance = rDistance(A, B)
 			r_distance_list.append(B_r_distance)
 		except Exception:
-			pass
-	lrd = 1/(sum(r_distance_list) / k) 											# K is class variable
+			continue
+	print("r_distance_list: ", r_distance_list)
+	avg_r_distance = sum(r_distance_list)/k
+	lrd = 1/avg_r_distance 
 	return lrd
 
 def get_conf_LoF(A, nn):

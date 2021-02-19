@@ -1,5 +1,5 @@
 import pytest 
-from classifiers.knn import knn
+from knn import knn
 from scipy.spatial import distance
 
 # python -m pytest .\conf_function_tests.py 

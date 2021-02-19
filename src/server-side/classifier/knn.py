@@ -3,20 +3,8 @@ import csv
 import math
 from scipy.spatial import distance
 #from classifiers.anomoly_detection import get_conf_ldofs
-import classifiers.conf_functions 
+import conf_functions 
 from sklearn.neighbors import LocalOutlierFactor
-
-
-def lib_lof():
-	df = pd.read_csv("transformed_dataset.csv")
-	x = df.drop(["image_name", "class_name"], axis=1)
-	y = df.class_name
-
-	# Find conf value to recognise OOD images
-	lof = LocalOutlierFactor(novelty=True)
-	lof.fit(x)
-
-	return lof
 
 
 class knn:
@@ -66,20 +54,9 @@ class knn:
 		# Get most common class name
 		class_list = [item[1] for item in nn]
 		classification = max(set(class_list), key=class_list.count)
-
-		#conf = get_conf_ldofs(nn)
-		#conf = -(conf)
-
-		#conf = classifiers.conf_functions.get_conf_LoF(gesture_data, nn)
-
-		################### LIBRARY LoF ###########################
-
-		lof = lib_lof()
-		conf = lof.decision_function(gesture_data)[0]
-		print(conf)
+		#print(conf)
 		#print(nn)
-
-		return classification, conf
+		return classification, nn
 
 
 if __name__ == '__main__':

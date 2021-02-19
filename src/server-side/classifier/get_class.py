@@ -2,7 +2,8 @@ import json
 import os
 from data_transformer import translate, enlarge, rotate
 import time
-from classifiers.knn import knn
+from knn import knn
+from LoF import lib_lof
 
 # Gestures below min conf are likely to be OOD 
 min_conf = -1.3			#(works well with library LoF)
@@ -40,6 +41,15 @@ def processGestureData(gesture_data):
 	return gesture_data
 
 
+def classify(gesture_data):
+	clf = knn()
+	classification, nn = clf.predict(gesture_data)
+	#conf = lib_lof(gesture_data[0], nn)
+
+	lof = lib_lof()
+	conf = lof.decision_function(gesture_data)[0]
+	return classification, conf
+
 def getClass(image_path=image_path):
 	# Run OpenPose from it's own directory or it won't work
 	cwd = os.getcwd() 
@@ -71,8 +81,10 @@ def getClass(image_path=image_path):
 	# Put line into classifier 
 	#print(gesture_data)
 	#classification, conf = classify(gesture_data)
-	clf = knn()
-	classification, conf = clf.predict(gesture_data)
+
+	classification, conf = classify(gesture_data)
+
+	
 
 	# Check if confidence value is acceptable
 	if conf < min_conf:
