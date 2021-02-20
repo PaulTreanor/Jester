@@ -3,19 +3,18 @@ import os
 from data_transformer import translate, enlarge, rotate
 import time
 from knn import knn
-from conf_functions import lib_lof
-from conf_functions import get_conf_LoF
-
+from conf_functions import lib_lof, get_conf_LoF, get_conf_ldofs
 
 # Gestures below min conf are likely to be OOD 
-#min_conf = -1.3			#(works well with library LoF)
-# min_conf = -25		#(works with ldof from scratch)			
+# Recommended min_conf values for k=5 : (lib_lof: -1.3), (lof: -1.3), (ldof: -25)
+# K should be <= 5
 min_conf = -1.3																								
-k = 5																																							
+k = 5																																						
 
 # Global paths only used when running program directly
 image_path = 'C:\\Users\\trean\\Desktop\\College\\4YP\\2021-ca400-ptreanor-cgorman\\src\\server-side\\image'
 output_path = 'C:\\Users\\trean\\Desktop\\College\\4YP\\2021-ca400-ptreanor-cgorman\\src\\server-side\\classifier\\openposeJSON'
+
 
 # Write and run OpenPose command
 def runOpenPose(image_path=image_path):
@@ -34,27 +33,27 @@ def getJsonData():
 		return gesture_data	
 
 
+# Carry out tranformations on the line
 def processGestureData(gesture_data):
 	gesture_data = [gesture_data[0]] + [float(val) for val in gesture_data[1:]]
-	# Carry out tranformations on the line
 	gesture_data = translate(gesture_data)
 	gesture_data = enlarge(gesture_data)
 	gesture_data = rotate(gesture_data)
-	
 	return gesture_data
 
 
 def classify(gesture_data):
 	clf = knn(k)
 	classification, nn = clf.predict(gesture_data)
-	conf = get_conf_LoF(gesture_data[0], nn, k)
-
+	conf = get_conf_LoF(gesture_data[0], nn, k)  
+	#conf = get_conf_ldofs(nn)
 	#lof = lib_lof()
 	#conf = lof.decision_function(gesture_data)[0]
 	return classification, conf
 
+
 def getClass(image_path=image_path):
-	# Run OpenPose from it's own directory or it won't work
+	# Run OpenPose must run from directory it is in
 	cwd = os.getcwd() 
 	runOpenPose(image_path)
 	os.chdir(cwd)
@@ -79,8 +78,6 @@ def getClass(image_path=image_path):
 
 	gesture_data = processGestureData(gesture_data)
 	gesture_data = [gesture_data[1:]]
-	#print(gesture_data)
-
 	classification, conf = classify(gesture_data)
 
 	# Check if confidence value is acceptable
@@ -90,7 +87,6 @@ def getClass(image_path=image_path):
 	# Delete image from server 
 	#os.remove(image_path + 'image.jpg')
 	return classification
-
 
 if __name__ == '__main__':					
 	print(getClass())

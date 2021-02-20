@@ -44,8 +44,7 @@ def test_alt_thumbs_up_classification():
 	image_path = 'C:\\Users\\trean\\Desktop\\College\\4YP\\2021-ca400-ptreanor-cgorman\\src\\server-side\\test-images\\alt-thumbs-up'
 	classification = getClass(image_path)
 	assert classification == 'thumbs_up'
-
-
+	
 
 ############## OUT OF DISTRIBUTION UNIT TESTS ######################
 
