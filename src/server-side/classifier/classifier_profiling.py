@@ -1,7 +1,6 @@
 import time 
 from knn import knn
 import conf_functions
-import cProfile
 
 # Measure the performance of algorithms for optimisations
 
@@ -13,16 +12,18 @@ def knn_profile(gesture_data, k):
 	execution_time = stop-start 
 	return execution_time
 
-def LoF_profile(A, nn, k):
+def LdoF_profile(nn):
 	start = time.perf_counter()
-	local_outlier_factor = conf_functions.get_conf_LoF(A, nn, k)
+	local_outlier_factor = conf_functions.get_conf_ldofs(nn)
 	stop = time.perf_counter()
 	execution_time = stop-start 
 	return execution_time
 
-def LdoF_profile(nn):
+def LoF_profile(A, nn, k):
+	clf = knn(k)
+
 	start = time.perf_counter()
-	local_outlier_factor = conf_functions.get_conf_ldofs(nn)
+	local_outlier_factor = conf_functions.get_conf_LoF(A, nn, clf, k)
 	stop = time.perf_counter()
 	execution_time = stop-start 
 	return execution_time
@@ -48,5 +49,5 @@ if __name__ == '__main__':
 	A = [float(item) for item in gesture_data]
 	k = 5
 
-	cProfile.run(avg_performance(gesture_data, A, nn, k))
+	avg_performance(gesture_data, A, nn, k)
 

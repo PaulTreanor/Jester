@@ -15,7 +15,6 @@ k = 5
 image_path = 'C:\\Users\\trean\\Desktop\\College\\4YP\\2021-ca400-ptreanor-cgorman\\src\\server-side\\image'
 output_path = 'C:\\Users\\trean\\Desktop\\College\\4YP\\2021-ca400-ptreanor-cgorman\\src\\server-side\\classifier\\openposeJSON'
 
-
 # Write and run OpenPose command
 def runOpenPose(image_path=image_path):
 	command = 'bin\\OpenPoseDemo.exe --image_dir ' + image_path + ' --hand --net_resolution "-1x320" --write_json ' + output_path + '\n'
@@ -45,7 +44,7 @@ def processGestureData(gesture_data):
 def classify(gesture_data):
 	clf = knn(k)
 	classification, nn = clf.predict(gesture_data)
-	conf = get_conf_LoF(gesture_data[0], nn, k)  
+	conf = get_conf_LoF(gesture_data[0], nn, clf, k)  
 	#conf = get_conf_ldofs(nn)
 	#lof = lib_lof()
 	#conf = lof.decision_function(gesture_data)[0]

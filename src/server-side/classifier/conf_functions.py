@@ -9,7 +9,6 @@ from knn import knn
 def lib_lof():
 	df = pd.read_csv("transformed_dataset.csv")
 	x = df.drop(["image_name", "class_name"], axis=1)
-	y = df.class_name
 	lof = LocalOutlierFactor(novelty=True)
 	lof.fit(x)
 	return lof
@@ -42,9 +41,8 @@ def get_conf_ldofs(nn):
 ############# LoF ALGORITHM #####################
 # Local outlier factor has max accuracy (90% ood detection) when min_conf = -1.3
 
-def rDistance(A, B, k):
-	B_clf = knn()
-	B_nns = B_clf.get_knn(B[2])
+def rDistance(A, B, clf, k):
+	B_nns = clf.get_knn(B[2])
 	if len(A) ==3:
 		A = A[2]
 	k_dist = max([distance.euclidean(B[2], n[2]) for n in B_nns])
@@ -52,22 +50,21 @@ def rDistance(A, B, k):
 	r_distance = max(k_dist, AB_dist)
 	return r_distance
 
-def lrd(A, nn, k):
+def lrd(A, nn, clf, k):
 	r_distance_list = []
 	for B in nn:
-		B_r_distance = rDistance(A, B, k)
+		B_r_distance = rDistance(A, B, clf, k)
 		r_distance_list.append(B_r_distance)
 	avg_r_distance = sum(r_distance_list)/k
 	lrd = 1.0/avg_r_distance 
 	return lrd
 
-def get_conf_LoF(A, nn, k):
-	A_lrd = lrd(A, nn, k)
+def get_conf_LoF(A, nn, clf, k):
+	A_lrd = lrd(A, nn, clf, k)
 	lrd_list = []
 	for B in nn:
-		B_clf = knn()
-		B_nns = B_clf.get_knn(B[2])	
-		B_lrd = lrd(B, B_nns, k)
+		B_nns = clf.get_knn(B[2])	
+		B_lrd = lrd(B, B_nns, clf, k)
 		lrd_list.append(B_lrd)
 	lrd_total = sum(lrd_list)
 	divisor = A_lrd*k
