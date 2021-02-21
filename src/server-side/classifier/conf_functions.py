@@ -69,6 +69,7 @@ def get_conf_LoF(A, nn, clf, k):
 	lrd_total = sum(lrd_list)
 	divisor = A_lrd*k
 	lof = lrd_total/divisor
+	lof = -lof
 	return lof
 
 

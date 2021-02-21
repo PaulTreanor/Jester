@@ -6,9 +6,9 @@ from knn import knn
 from conf_functions import lib_lof, get_conf_LoF, get_conf_ldofs
 
 # Gestures below min conf are likely to be OOD 
-# Recommended min_conf values for k=5 : (lib_lof: -1.3), (lof: -1.3), (ldof: -25)
+# Recommended min_conf values for k=5 : (lib_lof: -1.3), (lof: -3), (ldof: -25)
 # K should be <= 5
-min_conf = -1.3																								
+min_conf = -3																								
 k = 5																																						
 
 # Global paths only used when running program directly
@@ -78,7 +78,7 @@ def getClass(image_path=image_path):
 	gesture_data = processGestureData(gesture_data)
 	gesture_data = [gesture_data[1:]]
 	classification, conf = classify(gesture_data)
-
+	print(conf)
 	# Check if confidence value is acceptable
 	if conf < min_conf:
 		return "OOD"
