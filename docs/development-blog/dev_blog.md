@@ -36,11 +36,12 @@ I fed dummy data into the alorithms and recorded the execution time of each algo
 I found that by reading in the csv file once as part of the constructor of the KNN class, I could improve the speed of all the algorithms as they depended on that class. Using a Pandas DataFrame structure rather than rereading a CSV file also increased performance. I found that using a single KNN class instance was faster than creating an instance many times in the LoF algorithm. 
 
 These changes improved execution times as followed :
-Algorithm (k=5 for all)   | Before Optimisations (seconds) |  After Optimisations (seconds) 
-:-------------------------:|:-------------------------:|:-------------------------:
-KNN  |  0.078| 0.071 
-LdoF  |  0.000|0.000 
-LoF  |  2.790| 1.956
+
+|Algorithm (k=5 for all)   | Before Optimisations (seconds) |  After Optimisations (seconds) |
+|:-------------------------:|:-------------------------:|:-------------------------:|
+|KNN  |  0.078| 0.071 |
+|LdoF  |  0.000|0.000 |
+|LoF  |  2.790| 1.956|
 
 LoF is more accurate than LdoF, but possibly too slow to be functional. 
 
