@@ -4,6 +4,51 @@ This blog is to document the research and design done during the development of 
 
 _____
 
+## Classifier and Anomoly Detection - Paul - 22/02/2021
+
+###  Server-side Pipeline
+The server side of Jester consists of a pipeline that reads in an image and returns a classification. The processes in this pipeline are called from the program get_class.py. 
+
+###  Classifier
+Initially the pipeline used the k-nearest neighbours (KNN) algorithm from the SciKit-Learn library. This was useful to create tests to measure the accuracy of the classifier. I then implemented KNN from scratch. 
+
+KNN was implemented as a class which takes the parameter k. The get_knn function takes in a list of gesture coordinates and returns a list of the k nearest neighbours to those coordinates in the dataset. The distance between neighbours is measured using the euclidean distance. The predict function then finds the most frequent class in the list of nearest neighbours. 
+
+### Anomoly Detection
+In order to detect out of distribution (OOD) hand gestures we needed an anomoly detection algorithm. The simplest way to look for outliers using the KNN algorithm is by looking at the distance of the kth nearest neighbour, or the average distance of the k nearest neighbours [1]. These algorithms were unable to pass tests I created to detect OOD gestures. 
+
+The study where I found the Kthnn and Knn outlier detection algorithms also suggested the LoF algorithm, which compares the density of an object's neighbourhood to the density of each of its neighbour's neighbourhood. The LoF algorithm can be slow as it must calculate lists of nearest neighbours k<sup> 2 </sup> + 1 times, which leads to an enormous number of distance calculations. The local distance outlier factor (LdoF) is a recent algorithm that can be as accurate as LoF while requiring far fewer calculations and being much simplier to implement [2].
+
+My implementation of the LdoF algorithm was only 90% accurate (according to my tests) at classifying KNN results as being in or out of distribution.
+
+I developed the LoF algorithm from scratch to see if it could be more accurate, and after some debugging it was able to pass **all** the tests. The implementation of this algorithm is the aspect of the project that I'm most proud of so far.
+
+### Testing
+I created a set of 10 tests in get_class_tests.py which put images through the pipeline to be classified. The images include recognised hand gestures, OOD hand gestures, and images without hands at all. These tests were useful for measuring the accuracy of the KNN algorithm and various anomoly detection algorithms. The combination of KNN and LoF allowed all tests to be passed. 
+
+I also made some simple unit tests to ensure that the functions in the KNN, KthNN, Ldof, and LoF algorithms were correct. 
+
+### Profiling and Performance
+The file classifier_profiling.py measures the performance of the KNN and anomoly detection algorithms. This program allowed me to identify bottlenecks in the system and measure improvements. 
+
+I fed dummy data into the alorithms and recorded the execution time of each algorithm. The program runs each function 5 times and prints the average execution times. 
+
+I found that by reading in the csv file once as part of the constructor of the KNN class, I could improve the speed of all the algorithms as they depended on that class. Using a Pandas DataFrame structure rather than rereading a CSV file also increased performance. I found that using a single KNN class instance was faster than creating an instance many times in the LoF algorithm. 
+
+These changes improved execution times as followed :
+Algorithm (k=5 for all)   | Before Optimisations (seconds) |  After Optimisations (seconds) 
+:-------------------------:|:-------------------------:|:-------------------------:
+KNN  |  0.078| 0.071 
+LdoF  |  0.000|0.000 
+LoF  |  2.790| 1.956
+
+LoF is more accurate than LdoF, but possibly too slow to be functional. 
+
+### References 
+1. Gu, Xiaoyi & Akoglu, Leman & Rinaldo, Alessandro. (2019). Statistical Analysis of Nearest Neighbor Methods for Anomaly Detection. Available at: https://www.researchgate.net/publication/334361033_Statistical_Analysis_of_Nearest_Neighbor_Methods_for_Anomaly_Detection [Accessed 22 Feb. 2021]
+
+2. Zhang K., Hutter M., Jin H. (2009). A New Local Distance-Based Outlier Detection Approach for Scattered Real-World Data. In: Theeramunkong T., Kijsirikul B., Cercone N., Ho TB. (eds) Advances in Knowledge Discovery and Data Mining. PAKDD 2009. Lecture Notes in Computer Science, vol 5476. Springer, Berlin, Heidelberg. [https://doi.org/10.1007/978-3-642-01307-2_84](https://doi.org/10.1007/978-3-642-01307-2_84)
+
 
 
 ## Data-preprocessing - Paul - 02/02/2021
