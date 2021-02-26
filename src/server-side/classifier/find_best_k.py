@@ -3,7 +3,7 @@ from sklearn.model_selection import train_test_split
 from sklearn import metrics 
 from sklearn.neighbors import KNeighborsClassifier
 
-########## To FIND OUT WHAT VALUES OF K ARE THE MOST ACCURATE ##############
+########## To find most accurate value of K for KNN (using library knn) ##############
 
 def knn(k):
 	df = pd.read_csv("..\\transformed_dataset.csv")

@@ -3,8 +3,8 @@ import requests
 
 API_URL = 'http://192.168.43.219:5000/'
 
-def post_file(filename):
-	files = {'file': open(filename, 'rb')}
+def post_file(filename, filepath="./"):
+	files = {'file': open(filepath+filename, 'rb')}
 	r = requests.post(API_URL + filename, files=files)
 	print(r.status_code)
 	print(r.text)
@@ -15,13 +15,15 @@ def test_connection():
 	assert r.status_code == 200
 
 def test_ood_image():
-	filename = 'test_image1.jpg'
-	r = post_file(filename)
+	filepath = "C:\\Users\\trean\\Desktop\\College\\4YP\\2021-ca400-ptreanor-cgorman\\src\\server-side\\test-images\\ood/"
+	filename = 'image.jpg'
+	r = post_file(filename, filepath)
 	assert r.status_code == 201 and r.text == "OOD"
 
 def test_gesture_image():
-	filename = 'test_image2.jpg'
-	r = post_file(filename)
+	filepath = "C:\\Users\\trean\\Desktop\\College\\4YP\\2021-ca400-ptreanor-cgorman\\src\\server-side\\test-images\\alt-palm/"
+	filename = 'image.jpg'
+	r = post_file(filename, filepath)
 	assert r.status_code == 201 and r.text == "palm"
 
 def test_400_error():
@@ -34,5 +36,7 @@ if __name__ == "__main__":
 	r = requests.get(API_URL)
 	print(r.status_code, r.text)
 	# Send file
-	filename = 'test_image1.jpg'
-	post_file(filename)
+	filepath = "C:\\Users\\trean\\Desktop\\College\\4YP\\2021-ca400-ptreanor-cgorman\\src\\server-side\\test-images\\alt-palm/"
+	filename = 'image.jpg'
+	post_file(filename, filepath)
+

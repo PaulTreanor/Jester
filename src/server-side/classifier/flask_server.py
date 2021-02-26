@@ -23,7 +23,8 @@ def post_file(filename):
 
 	# Delete directory
 	os.rmdir(upload_path)
-	# 201 CREATED
+
+	# 201 - created 
 	return classification, 201
 
 @api.route("/")
