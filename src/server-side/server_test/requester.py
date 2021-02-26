@@ -11,5 +11,9 @@ def post_file(filename):
 
 
 if __name__ == "__main__":
+	# Test connection
+	r = requests.get(API_URL)
+	print(r.status_code, r.text)
+	# Send file
 	filename = 'image.png'
 	post_file(filename)
