@@ -2,7 +2,7 @@ import os
 import requester#
 import requests
 
-API_URL = 'http://192.168.43.105:5000/'
+API_URL = 'http://192.168.43.219:5000/'
 
 def test_connection():
 	r = requests.get(API_URL)

@@ -11,8 +11,8 @@ from conf_functions import lib_lof, get_conf_LoF, get_conf_ldofs
 min_conf = -3																								
 k = 5																																						
 
-# Global paths only used when running program directly
-image_path = 'C:\\Users\\trean\\Desktop\\College\\4YP\\2021-ca400-ptreanor-cgorman\\src\\server-side\\image'
+# Global image_path only used when running program directly
+image_path = 'C:\\Users\\trean\\Desktop\\College\\4YP\\2021-ca400-ptreanor-cgorman\\src\\server-side\\test-images\\ood'
 output_path = 'C:\\Users\\trean\\Desktop\\College\\4YP\\2021-ca400-ptreanor-cgorman\\src\\server-side\\classifier\\openposeJSON'
 
 # Write and run OpenPose command
@@ -61,7 +61,9 @@ def getClass(image_path=image_path):
 
 	# Delete image from server
 	path = image_path + "\\image.jpg"
-	os.remove(path)
+	# Don't delete image if ad hoc testing get_class
+	if __name__ != '__main__':
+		os.remove(path)
 
 	# Default min threshold for displaying in OpenPose is 0.5 (sum of 10.5 for 21 total keypoints), lower value of 5 works better for this application  											  
 	min_total = 5                                        																		
@@ -87,8 +89,6 @@ def getClass(image_path=image_path):
 	if conf < min_conf:
 		return "OOD"
 
-	# Delete image from server 
-	#os.remove(image_path + 'image.jpg')
 	return classification
 
 if __name__ == '__main__':					

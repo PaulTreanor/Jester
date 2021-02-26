@@ -1,6 +1,6 @@
 import requests
 
-API_URL = 'http://192.168.43.105:5000/'
+API_URL = 'http://192.168.43.219:5000/'
 
 
 def post_file(filename):
