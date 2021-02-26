@@ -60,7 +60,7 @@ def getClass(image_path=image_path):
 	gesture_data = getJsonData()
 
 	# Delete image from server
-	path = image_path + "\\cool.png"
+	path = image_path + "\\image.jpg"
 	os.remove(path)
 
 	# Default min threshold for displaying in OpenPose is 0.5 (sum of 10.5 for 21 total keypoints), lower value of 5 works better for this application  											  
