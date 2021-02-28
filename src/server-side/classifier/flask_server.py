@@ -2,18 +2,22 @@ import os
 import time
 from flask import Flask, request, abort
 from get_class import getClass
+from flask_cors import CORS
 
 api = Flask(__name__)
+CORS(api)
 root_upload_path = 'C:\\Users\\trean\\Desktop\\College\\4YP\\2021-ca400-ptreanor-cgorman\\src\\server-side\\classifier\\uploads'
 ALLOWED_EXTENSIONS = {'.jpg', '.jpeg'}
 
 @api.route("/<filename>", methods=["POST"])
 def post_file(filename):
+	if 'file' not in request.files:
+			return "File didn't send", 404
 	# Create new directory for each request (OpenPose only reads images)
 	filename, fileExtension = os.path.splitext(filename)
 	print(fileExtension)
-	if fileExtension not in ALLOWED_EXTENSIONS:
-		return "Invalid filetype", 422
+	#if fileExtension not in ALLOWED_EXTENSIONS:
+	#	return "Invalid filetype", 422
 	upload_path = root_upload_path + '/' + filename	
 	os.mkdir(upload_path)
 
