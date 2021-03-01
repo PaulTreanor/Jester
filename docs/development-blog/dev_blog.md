@@ -3,6 +3,17 @@
 This blog is to document the research and design done during the development of Jester. 
 
 _____
+## Server and API - Paul - 1/03/2021
+An API is needed to connect the mobile devices running the Jester app to the server where images are processed. Images are sent from devices to the server, and a classification is returned.
+
+###  Flask Server/API
+I implemented a REST API using the Python Flask micro web-framework. The API accepts two types of calls: a GET request to test the connection, and a POST request to send an image to the server and return a classification. When an image is POSTed, its filetype is verified and it's then processed by the classifier. 
+
+In order for multiple instances of the app to have images classified at the same time, each image needs to have a unique file name. This requirement will need to be implemented in the mobile app. 
+
+### Testing
+I used the python requests and pytest libraries to make a test program called server_tests.py which sends files across the network and asserts that the API behaviour is correct. The tests can be run from a different computer that is on the same network (local network in this case) as the server. I also accessed the "test_connection" URL from a mobile browser on the same network to ensure it was working. 
+
 
 ## Classifier and Anomoly Detection - Paul - 22/02/2021
 
