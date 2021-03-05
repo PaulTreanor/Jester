@@ -13,7 +13,7 @@ const preview = document.querySelector('video#preview');
 const playButton = document.querySelector('button#play');
 const downloadButton = document.querySelector('button#download');
 
-
+var post_url = "http://192.168.43.105:5000/image";
 // -------------------- UI FUNCTIONS -------------------//
 
 // Start/stop video
@@ -98,9 +98,46 @@ if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
   });
 }
 
+// Send screenshots to server
+async function postData(post_url, image) {
+	let formData = new FormData();
+	formData.append('file', image);
+	console.log(image);
+
+    const response = await fetch(post_url, {
+      method: 'POST',
+      body: formData
+    });
+
+    response.text().then(function (text) {
+        console.log(text)
+        alert(text);
+        if (text =="palm"){
+          startRecording(vidLength);
+        }
+        if (text == "peace"){
+          takePhoto();
+        }
+        if (text = "thumbs_up"){
+          setTimeout(
+            takePhoto()
+            , 5000);
+        }
+        //else do nothing
+      });
+  }
+
+  
+function updateServer(){
+  takePhoto();
+  canvas.toBlob(function(blob){
+		var image = blob;
+		postData(post_url, image)
+	}, 'image/jpeg', 0.95)
+}
 
 // Take and send photo every x seconds
-var intervalID = window.setInterval(takePhoto, 5000);
+var intervalID = window.setInterval(updateServer, 20000);
 
 
 
