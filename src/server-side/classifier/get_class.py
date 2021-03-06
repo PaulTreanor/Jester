@@ -26,6 +26,8 @@ def runOpenPose(image_path=image_path):
 def getJsonData():
 	with open('openposeJSON\\image_keypoints.json', "r") as json_file:
 		json_data = json.load(json_file)
+		if len(json_data['people']) == 0:
+			return "noPeople"
 		first_person = json_data['people'][0]
 		gesture_data = first_person['hand_right_keypoints_2d']
 		gesture_data.insert(0, "image")
@@ -59,8 +61,14 @@ def getClass(image_path=image_path):
 
 	gesture_data = getJsonData()
 
-	# Delete image from server
 	path = image_path + "\\image.jpg"
+
+	if gesture_data == "noPeople":
+		os.remove(path)
+		return "OOD"
+
+	# Delete image from server
+	
 	# Don't delete image if ad hoc testing get_class
 	if __name__ != '__main__':
 		os.remove(path)
