@@ -113,15 +113,15 @@ async function postData(post_url, image) {
         console.log(text)
         alert(text);
         if (text =="palm"){
-          startRecording(vidLength);
+          setTimeout(
+            takePhoto()
+            , 5000);
         }
         if (text == "peace"){
           takePhoto();
         }
         if (text = "thumbs_up"){
-          setTimeout(
-            takePhoto()
-            , 5000);
+          startRecording(vidLength);
         }
         //else do nothing
       });
