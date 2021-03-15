@@ -1,6 +1,8 @@
 <template>
   <div id="app">
     <Nav/>
+    <!---video tag is a placeholder for the camera/gallery/info components ---->
+    <video id="preview" playsinline autoplay muted></video>
   </div>
 </template>
 
@@ -10,6 +12,24 @@ export default {
   name: 'App',
   components: {
     Nav
+  },
+  data() {
+    return {
+      msg: ""
+    };
+  },
+  mounted() {
+    const preview = document.querySelector('video#preview');
+
+    // Access camera 
+    if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+      // {audo: true} to get audio
+      navigator.mediaDevices.getUserMedia({ video: true }).then(function(stream) {
+        window.stream = stream;
+        // Play video stream in preview box
+        preview.srcObject = stream;
+      });
+    }
   }
 }
 </script>
