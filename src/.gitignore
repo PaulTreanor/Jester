@@ -1,13 +1,6 @@
 
-# Ignore everything in the build directory.
-build/
-
-# Do not store node modules in your repo.
-node_modules/
-
-# Byte-compiled / optimized / DLL files
+# Compiled Python
 __pycache__/
-
 
 # Flask 
 instance/
@@ -15,3 +8,9 @@ instance/
 
 # PyTest
 .pytest_cache/
+
+# Vue.js 
+build/
+node_modules/
+npm-debug.log
+yarn-error.log
