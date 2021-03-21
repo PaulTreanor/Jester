@@ -1,6 +1,6 @@
 import pytest 
 from get_class import getClass
-
+from pytest import ExitCode
 # To run all tests remove "-v -m" and the specific marker
 # python -m pytest .\get_class_tests.py -v -m marker
 

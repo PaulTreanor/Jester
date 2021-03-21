@@ -1,7 +1,7 @@
 import pytest 
 from knn import knn
 import conf_functions
-
+from pytest import ExitCode
 # python -m pytest .\conf_function_tests.py 
 
 ##################### SIMPLE CONFIDENCE FUNCTION TESTS ######################

@@ -2,7 +2,7 @@ import pytest
 from data_transformer import translate
 from data_transformer import enlarge
 from data_transformer import rotate
-
+from pytest import ExitCode
 # To run all tests remove "-v -m" and the specific marker
 # python -m pytest .\data_transformer_tests.py -v -m translations
 

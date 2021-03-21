@@ -14,6 +14,7 @@ k = 5
 # Global image_path only used when running program directly
 image_path = 'C:\\Users\\trean\\Desktop\\College\\4YP\\2021-ca400-ptreanor-cgorman\\src\\server-side\\test-images\\ood'
 output_path = 'C:\\Users\\trean\\Desktop\\College\\4YP\\2021-ca400-ptreanor-cgorman\\src\\server-side\\classifier\\openposeJSON'
+json_path = 'C:\\Users\\trean\\Desktop\\College\\4YP\\2021-ca400-ptreanor-cgorman\\src\\server-side\\classifier\\openposeJSON\\image_keypoints.json'
 
 # Write and run OpenPose command
 def runOpenPose(image_path=image_path):
@@ -24,7 +25,7 @@ def runOpenPose(image_path=image_path):
 
 # Extracts keypoint data from JSON into list
 def getJsonData():
-	with open('openposeJSON\\image_keypoints.json', "r") as json_file:
+	with open(json_path, "r") as json_file:
 		json_data = json.load(json_file)
 		if len(json_data['people']) == 0:
 			return "noPeople"
