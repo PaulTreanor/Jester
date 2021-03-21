@@ -2,10 +2,16 @@ import pandas as pd
 import csv
 from scipy.spatial import distance
 
+
+
+
 class knn:
 	def __init__(self, k=5):
 		self.k = k
-		self.df = pd.read_csv("transformed_dataset.csv")
+		try:
+			self.df = pd.read_csv("transformed_dataset.csv")
+		except FileNotFoundError:
+			self.df = pd.read_csv("src/server-side/classifier/transformed_dataset.csv")
 
 	def get_knn(self, gesture_data):
 		# nn is list of k nearest neighbours tuples in the form (distance, class_name, feature_coordinates)
@@ -36,6 +42,9 @@ class knn:
 		class_list = [item[1] for item in nn]
 		classification = max(set(class_list), key=class_list.count)
 		return classification, nn
+
+	
+
 
 
 if __name__ == '__main__':
