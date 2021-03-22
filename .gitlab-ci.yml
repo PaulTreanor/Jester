@@ -1,8 +1,0 @@
-test:pytest:
-  image: python:3.6
-  script:
-    - pip install matplotlib
-    - pip install -U scikit-learn
-    - pip install pandas
-    - pip install pytest --quie
-    - pytest
