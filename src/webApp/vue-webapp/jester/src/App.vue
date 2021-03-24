@@ -1,9 +1,9 @@
 <template>
   <div id="app">
-    <Nav v-on:active-view='activeView'/>
-    <Camera v-if="active_view === 1"/>
+    <Nav v-on:active-view='setActiveView'/>
+    <Camera v-on:caputure-image='storeImage' v-if="active_view === 1"/>
     <Info v-if="active_view === 3"/>
-    <Gallery v-if="active_view === 2"/>
+    <Gallery v-bind:photo="photos" v-if="active_view === 2"/>
   </div>
 </template>
 
@@ -23,13 +23,19 @@ export default {
   },
   data() {
     return {
-      active_view: 1
+      active_view: 1,
+      photos: ''
     };
   },
   methods: {
-        activeView(num) {
+        setActiveView(num) {
             this.active_view = num;
+        },
+        storeImage(blob) {
+          this.photos = blob; 
         }
+
+        
     }
   
   
