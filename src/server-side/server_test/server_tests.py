@@ -1,7 +1,10 @@
 import os
 import requests
+import pytest 
+import socket
 
-API_URL = 'http://192.168.43.219:5000/'
+LOCAL_IP_ADDRESS = socket.gethostbyname(socket.gethostname())
+API_URL = 'http://'+LOCAL_IP_ADDRESS+':5000/'
 
 def post_file(filename, filepath="./"):
 	files = {'file': open(filepath+filename, 'rb')}
@@ -19,6 +22,7 @@ def test_ood_image():
 	filename = 'image.jpg'
 	r = post_file(filename, filepath)
 	assert r.status_code == 201 and r.text == "OOD"
+
 
 def test_gesture_image():
 	filepath = "C:\\Users\\trean\\Desktop\\College\\4YP\\2021-ca400-ptreanor-cgorman\\src\\server-side\\test-images\\alt-palm/"

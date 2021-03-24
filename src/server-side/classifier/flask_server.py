@@ -16,8 +16,8 @@ def post_file(filename):
 	# Create new directory for each request (OpenPose only reads images)
 	filename, fileExtension = os.path.splitext(filename)
 	print(fileExtension)
-	#if fileExtension not in ALLOWED_EXTENSIONS:
-	#	return "Invalid filetype", 422
+	if fileExtension not in ALLOWED_EXTENSIONS:
+		return "Invalid filetype", 422
 	upload_path = root_upload_path + '/' + filename	
 	os.mkdir(upload_path)
 
