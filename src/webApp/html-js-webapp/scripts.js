@@ -1,11 +1,10 @@
 let mediaRecorder;
 let recordedBlobs;
-let vidLength = 5000;
+let vidLength = 3000;
 
 var canvas = document.getElementById('canvas');
 var context = canvas.getContext('2d');
 
-const errorMsgElement = document.querySelector('span#errorMsg');
 const recordedVideo = document.querySelector('video#recorded');
 const recordButton = document.querySelector('button#record');
 const snapButton = document.querySelector('button#snap');
@@ -57,9 +56,6 @@ downloadButton.addEventListener('click', () => {
 });
 
 // ------------- DATA FUNCTIONS ---------------//
-function wait(delayInMS) {
-  return new Promise(resolve => setTimeout(resolve, delayInMS));
-}
 
 function handleDataAvailable(event) {
   if (event.data && event.data.size > 0) {
@@ -87,7 +83,7 @@ function stopRecording() {
   downloadButton.disabled = false;
 }
 
-// Access camera 
+// Access camera and display preview at id='preview'
 if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
   // {audo: true} to get audio
   navigator.mediaDevices.getUserMedia({ video: true }).then(function(stream) {
@@ -137,7 +133,7 @@ function updateServer(){
 }
 
 // Take and send photo every x seconds
-var intervalID = window.setInterval(updateServer, 20000);
+window.setInterval(updateServer, 20000);
 
 
 
