@@ -3,6 +3,19 @@
 This blog is to document the research and design done during the development of Jester. 
 
 _____
+
+## Git Hooks and Automated Testing - Paul - 24/03/2021
+Git hooks are a way to run useful scripts before git events such as commiting or merging occur. I created some to help with our project workflow. 
+
+I made scripts to warn the user if they are about to commit to the master branch, and to validate that the commit message typed has at least 5 words in it (good commit messages are important!).
+
+### Automated Testing
+I also created a script which automatically runs all pytest tests in the repository. Pytest automatically detects files named with the *_test.py convention so this was very doable. I found that these tests locally before commits is more suiitable than on GitLab since the most important tests depend on OpenPose being installed on the machine. 
+
+### Sharing Hooks 
+The scripts used are in a folder called git hooks in the root of the repo so we can both use them on our machines. 
+
+
 ## Server and API - Paul - 1/03/2021
 An API is needed to connect the mobile devices running the Jester app to the server where images are processed. Images are sent from devices to the server, and a classification is returned.
 
