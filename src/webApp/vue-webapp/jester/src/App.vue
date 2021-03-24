@@ -1,36 +1,38 @@
 <template>
   <div id="app">
-    <Nav/>
-    <!---video tag is a placeholder for the camera/gallery/info components ---->
-    <video id="preview" playsinline autoplay muted></video>
+    <Nav v-on:active-view='activeView'/>
+    <Camera v-if="active_view === 1"/>
+    <Info v-if="active_view === 3"/>
+    <Gallery v-if="active_view === 2"/>
   </div>
 </template>
 
 <script>
 import Nav from './components/Nav';
+import Camera from './components/Camera';
+import Info from './components/Info';
+import Gallery from './components/Gallery';
+
 export default {
   name: 'App',
   components: {
-    Nav
+    Nav,
+    Camera,
+    Info,
+    Gallery
   },
   data() {
     return {
-      msg: ""
+      active_view: 1
     };
   },
-  mounted() {
-    const preview = document.querySelector('video#preview');
-
-    // Access camera 
-    if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-      // {audo: true} to get audio
-      navigator.mediaDevices.getUserMedia({ video: true }).then(function(stream) {
-        window.stream = stream;
-        // Play video stream in preview box
-        preview.srcObject = stream;
-      });
+  methods: {
+        activeView(num) {
+            this.active_view = num;
+        }
     }
-  }
+  
+  
 }
 </script>
 

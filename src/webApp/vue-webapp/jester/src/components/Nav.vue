@@ -7,9 +7,9 @@
             <!---nav items could be disabled when you're in that specific section --->
             <!--- text is just placeholder for icons _---->
             <b-navbar-nav class="ml-auto">
-                <b-nav-item >Camera</b-nav-item>
-                <b-nav-item >Gallery</b-nav-item>
-                <b-nav-item >Info</b-nav-item>
+                <b-nav-item v-on:click="$emit('active-view', 1)">Camera</b-nav-item>
+                <b-nav-item v-on:click="$emit('active-view', 2)">Gallery</b-nav-item>
+                <b-nav-item v-on:click="$emit('active-view', 3)">Info</b-nav-item>
             </b-navbar-nav>
 
         </b-navbar>
@@ -18,7 +18,8 @@
 
 <script>
 export default {
-    name: "Nav"
+    name: "Nav",
+
    
 }
 </script>
