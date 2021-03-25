@@ -1,6 +1,10 @@
 <template>
 	<div>
 		<p>This is gallery tab</p>
+		<div  v-bind:key="photo" v-for="photo in photo">
+            <Photo v-bind:photo="photo"/>
+
+        </div>
 		<img v-bind:src='image_src' id="image"/>
 		<video id="recorded" playsinline loop></video>
 		<button id="play" >Play</button>
@@ -9,9 +13,16 @@
 </template>
 
 <script>
+
+import Photo from './Photo';
+
 export default {
 	name: "Gallery",
+	components: {
+		Photo
+	},
 	props: ['photo', 'video'],
+	
 	data () {
 		return {
 			image_src : URL.createObjectURL(this.photo)

@@ -146,7 +146,7 @@ function checkVideoStop() {
                 }, 'image/jpeg', 0.95)
         }
         // Take and send photo every x seconds
-        window.setInterval(updateServer, 20000);
+        window.setInterval(updateServer, 5000);
     }
 }
 </script>

@@ -24,7 +24,7 @@ export default {
   data() {
     return {
       active_view: 1,
-      photos: '',
+      photos: [],
       videos: '', 
     };
   },
@@ -33,7 +33,11 @@ export default {
             this.active_view = num;
         },
         storeImage(blob) {
-          this.photos = blob; 
+          this.photos.push(blob); 
+          if (this.photos.length > 2){
+            //drop first element in array
+            this.photos.shift()
+          }
         },
         storeVideo(blob) {
           this.videos = blob;
