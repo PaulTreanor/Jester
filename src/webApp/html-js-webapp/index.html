@@ -8,13 +8,19 @@
     <body>
         <video id="preview" playsinline autoplay muted></video>
         <video id="recorded" playsinline loop></video>
-        
         <canvas id="canvas" width="640" height="480" style="border: 1px solid black;"> </canvas>
+        
         <div>
             <button id="record" disabled>Start Recording</button>
             <button id="play" disabled>Play</button>
             <button id="download" disabled>Download</button>
-            <button id="snap">Snap Photo</button>
+            <div id="controls">
+			  <span id="pause_gp">
+			  <button id="pause">pause</button>
+			  </span>
+			  <button id="resume">resume</button>
+			  <br>
+			</div>
         </div>
 
         <!-- load in js --->
