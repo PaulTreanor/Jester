@@ -59,18 +59,40 @@ export default {
         mediaRecorder.ondataavailable = handleDataAvailable;
         mediaRecorder.start();
         setTimeout(function(){
-            stopRecording()
-            console.log("this code is reachable")
-            // emit recorded video blob 
-            vm.$emit('recorded-video', recordedBlobs);
+            checkVideoStop();
             }, vidLength); 
         
         }
 
         function stopRecording() {
         mediaRecorder.stop();
-        recordButton.textContent = 'Start Recording';  
+        recordButton.textContent = 'Start Recording';
+        // emit recorded video blob 
+        vm.$emit('recorded-video', recordedBlobs);  
         }
+
+        function pauseMedia() {
+  mediaRecorder.requestData();
+  mediaRecorder.pause();
+  //play();
+}
+
+function resumeMedia() {
+  mediaRecorder.resume();
+  setTimeout(function(){
+      checkVideoStop();
+
+
+  }, vidLength); 
+}
+
+
+function checkVideoStop() {
+  pauseMedia();
+  //check handgesture 
+  updateServer();
+    // palm =
+}
 
         // Access camera and display preview at id='preview'
         if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
@@ -98,9 +120,7 @@ export default {
                 console.log(text)
                 alert(text);
                 if (text =="palm"){
-                setTimeout(
-                    takePhoto()
-                    , 5000);
+                stopRecording();
                 }
                 if (text == "peace"){
                 takePhoto();
@@ -108,7 +128,9 @@ export default {
                 if (text == "thumbs_up"){
                 startRecording(vidLength);
                 }
-                //else do nothing
+                
+                resumeMedia();
+                
             });
         }
         
@@ -124,7 +146,7 @@ export default {
                 }, 'image/jpeg', 0.95)
         }
         // Take and send photo every x seconds
-        window.setInterval(updateServer, 5000);
+        window.setInterval(updateServer, 20000);
     }
 }
 </script>
