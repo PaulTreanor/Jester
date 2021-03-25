@@ -3,7 +3,7 @@
     <Nav v-on:active-view='setActiveView'/>
     <Camera v-on:caputure-image='storeImage' v-on:recorded-video='storeVideo' v-if="active_view === 1"/>
     <Info v-if="active_view === 3"/>
-    <Gallery v-bind:photo="photos" v-bind:video="videos" v-if="active_view === 2"/>
+    <Gallery v-bind:photo="photos" v-bind:video="recordedVideos" v-if="active_view === 2"/>
   </div>
 </template>
 
@@ -25,7 +25,7 @@ export default {
     return {
       active_view: 1,
       photos: [],
-      videos: '', 
+      recordedVideos: [], 
     };
   },
   methods: {
@@ -40,7 +40,10 @@ export default {
           }
         },
         storeVideo(blob) {
-          this.videos = blob;
+          this.recordedVideos.push(blob);
+          if (this.recordedVideos.length > 1){
+            this.recordedVideos.shift()
+          }
         }
     }
 }
