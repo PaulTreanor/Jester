@@ -113,8 +113,7 @@ export default {
             });
 
             response.text().then(function (text) {
-                console.log(text)
-                alert(text);
+                tempAlert(text,1000);
                 if (text =="palm"){
                 stopRecording();
                 }
@@ -128,8 +127,19 @@ export default {
                 resumeMedia();               
             });
         }
+
+        function tempAlert(msg,duration){
+            var el = document.createElement("div");
+            el.setAttribute("style","position:absolute;top:40%;left:20%;background-color:blue;");
+            el.innerHTML = msg;
+            setTimeout(function(){
+            el.parentNode.removeChild(el);
+            },duration);
+            document.body.appendChild(el);
+        }
         
         function updateServer(){
+            
             takePhoto();
             canvas.toBlob(function(blob){
                 // emit blob for storage in gallery
