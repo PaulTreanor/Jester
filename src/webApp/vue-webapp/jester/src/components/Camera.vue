@@ -34,6 +34,8 @@ export default {
 
         // Start/stop video
         recordButton.addEventListener('click', () => {
+        tempAlert("This is your Alert",1000);
+       
         if (recordButton.textContent === 'Start Recording') {
             startRecording(vidLength);
         } else {
@@ -129,13 +131,13 @@ export default {
         }
 
         function tempAlert(msg,duration){
-            var el = document.createElement("div");
-            el.setAttribute("style","position:absolute;top:40%;left:20%;background-color:blue;");
-            el.innerHTML = msg;
+            var popup = document.createElement("popup");
+            popup.setAttribute("style","position:absolute;top:20%;left:45%;border-style: solid;background-color:white;padding:10px");
+            popup.innerHTML = msg;
             setTimeout(function(){
-            el.parentNode.removeChild(el);
+            popup.parentNode.removeChild(popup);
             },duration);
-            document.body.appendChild(el);
+            document.body.appendChild(popup);
         }
         
         function updateServer(){
@@ -160,6 +162,7 @@ export default {
         height: auto;
     }
 
+    
     
 
     
