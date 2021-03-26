@@ -1,10 +1,7 @@
 <template>
     <div>
-        <p>This is a video component</p>
-        
         <video id="recorded" playsinline loop></video>
-		<button id="play" >Play</button>
-		<button id="download">Download</button>
+        <b-button class="mb-2" id="download" block variant="primary">Download</b-button>
     </div>
 </template>
 
@@ -16,14 +13,11 @@ export default {
 		const downloadButton = document.querySelector('button#download');
 		let recordedBlobs = this.video;
 		const recordedVideo = document.querySelector('video#recorded');
-		const playButton = document.querySelector('button#play');
-
-		playButton.addEventListener('click', () => {
-            const superBuffer = new Blob(recordedBlobs, {type: 'video/webm'});
-            recordedVideo.src = window.URL.createObjectURL(superBuffer);
-            recordedVideo.controls = true;
-            recordedVideo.play();
-        });
+		
+        // Play video
+        const superBuffer = new Blob(recordedBlobs, {type: 'video/webm'});
+        recordedVideo.src = window.URL.createObjectURL(superBuffer);
+        recordedVideo.controls = true;        
 
 		downloadButton.addEventListener('click', () => {
             const blob = new Blob(recordedBlobs, {type: 'video/webm'});
@@ -43,3 +37,15 @@ export default {
 
 }
 </script>
+
+<style scoped>
+    #recorded {
+        width: 100%;
+        height: auto;
+        max-width: 640px;
+    }
+
+    #download {
+        max-width: 640px;
+    }
+</style>
