@@ -1,7 +1,7 @@
 <template>
     <div>
         <p>This is a photo component</p>
-        <img v-bind:src='image_src' id="image"/>
+        <b-img v-bind:src='image_src' id="image" fluid ></b-img>
     </div>
 </template>
 

@@ -63,4 +63,9 @@ export default {
     padding: 0;
   }
 
+  main {
+    margin:0;
+    padding:0;
+	}
+
 </style>

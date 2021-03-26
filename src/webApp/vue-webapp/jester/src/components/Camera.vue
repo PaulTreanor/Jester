@@ -1,11 +1,16 @@
 <template>
-    <div>
-        <video id="preview" playsinline autoplay muted></video>
-        <canvas id="canvas" width="640" height="480" style="border: 1px solid black;"> </canvas>
-        <div>
-            <button id="record" disabled>Start Recording</button>
-        </div>
-    </div>
+    <main >
+        <!----b-container fluid="xl"---->
+            <div class="d-flex justify-content-center">
+                <video id="preview" playsinline autoplay muted></video>
+            </div>
+            
+            <canvas id="canvas"> </canvas>
+            <div>
+                <button id="record" disabled>Start Recording</button>
+            </div>
+        <!---/b-container--->
+    </main>
 </template>
 
 <script>
@@ -19,6 +24,8 @@ export default {
         //Don't display the canvas
         canvas.style.display="none";
         var context = canvas.getContext('2d');
+        context.canvas.width = 640;
+        context.canvas.height = 480;
         var vm = this;
         const recordButton = document.querySelector('button#record');
         const preview = document.querySelector('video#preview');
@@ -35,7 +42,7 @@ export default {
         });
 
         function takePhoto(){
-        context.drawImage(preview, 0, 0, 640, 480);
+        context.drawImage(preview, 0, 0, 640,  480);
         }
 
     
@@ -137,5 +144,13 @@ export default {
 </script>
 
 <style scoped>
+    #preview {
+        width: 100%;
+        max-width: 900px;
+        height: auto;
+    }
 
+    
+
+    
 </style>
