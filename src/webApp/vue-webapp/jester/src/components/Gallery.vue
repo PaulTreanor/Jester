@@ -1,14 +1,12 @@
 <template>
 	<div>
-		<p>Gallery</p>
+		<h1>Gallery</h1>
 		<div v-bind:key="photo" v-for="photo in photo">
             <Photo v-bind:photo="photo"/>
         </div>
 		<div v-bind:key="video" v-for="video in video">
             <Video v-bind:video="video"/>
         </div>
-
-		
 	</div>
 </template>
 
@@ -23,11 +21,7 @@ export default {
 		Photo,
 		Video
 	},
-	props: ['photo', 'video'],
-	
-	
-	
-	
+	props: ['photo', 'video'],	
 }
 </script>
 

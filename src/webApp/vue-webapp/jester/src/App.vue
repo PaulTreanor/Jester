@@ -1,9 +1,9 @@
 <template>
   <div id="app">
-    <Nav v-on:active-view='setActiveView'/>
+    <Nav v-bind:active-view = "active_view" v-on:active-view='setActiveView'/>
     <Camera v-on:caputure-image='storeImage' v-on:recorded-video='storeVideo' v-if="active_view === 1"/>
-    <Info v-if="active_view === 3"/>
-    <Gallery v-bind:photo="photos" v-bind:video="recordedVideos" v-if="active_view === 2"/>
+    <Info  v-if="active_view === 2"/>
+    <Gallery v-bind:photo="photos" v-bind:video="recordedVideos" v-if="active_view === 3"/>
   </div>
 </template>
 
@@ -51,7 +51,7 @@ export default {
 
 <style>
   #app {
-    font-family: Avenir, Helvetica, Arial, sans-serif; /* this is a nice font */
+    font-family: Avenir, Helvetica, Arial, sans-serif; 
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     color: #2c3e50;

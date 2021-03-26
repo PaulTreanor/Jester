@@ -14,6 +14,5 @@ export default {
 			image_src : URL.createObjectURL(this.photo)
 		}
 	}
-
 }
 </script>

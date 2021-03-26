@@ -1,9 +1,6 @@
 <template>
     <div>
-        <!--Standard Camera.Vue preview -->
         <video id="preview" playsinline autoplay muted></video>
-        <!----end-------->
-        <!-------POTENTIALLY HIDE CANVAS USING BOOTSTRAP------->
         <canvas id="canvas" width="640" height="480" style="border: 1px solid black;"> </canvas>
         <div>
             <button id="record" disabled>Start Recording</button>
@@ -17,7 +14,6 @@ export default {
     mounted() {
         let mediaRecorder;
         let recordedBlobs;
-
         let vidLength = 3000;
         var canvas = document.getElementById('canvas');
         //Don't display the canvas
@@ -26,9 +22,8 @@ export default {
         var vm = this;
         const recordButton = document.querySelector('button#record');
         const preview = document.querySelector('video#preview');
-
         var post_url = "http://192.168.43.105:5000/image";
-        // -------------------- UI FUNCTIONS -------------------//
+
 
         // Start/stop video
         recordButton.addEventListener('click', () => {
@@ -44,7 +39,7 @@ export default {
         }
 
     
-        // ------------- DATA FUNCTIONS ---------------//
+        // ------------- MEDIA STREAM FUNCTIONS ---------------//
 
         function handleDataAvailable(event) {
         if (event.data && event.data.size > 0) {
@@ -72,32 +67,26 @@ export default {
         }
 
         function pauseMedia() {
-  mediaRecorder.requestData();
-  mediaRecorder.pause();
-  //play();
-}
+            mediaRecorder.requestData();
+            mediaRecorder.pause();
+        }
 
-function resumeMedia() {
-  mediaRecorder.resume();
-  setTimeout(function(){
-      checkVideoStop();
-
-
-  }, vidLength); 
-}
+        function resumeMedia() {
+            mediaRecorder.resume();
+            setTimeout(function(){
+                checkVideoStop();
+            }, vidLength); 
+        }
 
 
-function checkVideoStop() {
-  pauseMedia();
-  //check handgesture 
-  updateServer();
-    // palm =
-}
+        function checkVideoStop() {
+            pauseMedia();
+            updateServer();
+        }
 
         // Access camera and display preview at id='preview'
         if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-        // {audo: true} to get audio
-        navigator.mediaDevices.getUserMedia({ video: true }).then(function(stream) {
+        navigator.mediaDevices.getUserMedia({ video: true, audio: true }).then(function(stream) {
             recordButton.disabled = false;
             window.stream = stream;
             // Play video stream in preview box
@@ -128,22 +117,18 @@ function checkVideoStop() {
                 if (text == "thumbs_up"){
                 startRecording(vidLength);
                 }
-                
-                resumeMedia();
-                
+                //resume media will do nothing unless video on and paused 
+                resumeMedia();               
             });
         }
         
         function updateServer(){
             takePhoto();
             canvas.toBlob(function(blob){
-                    //I can porbably remove this variable right?
-                    var image = blob;
-
-                    // emit blob for storage in gallery
-                    vm.$emit('caputure-image', blob);
-                    postData(post_url, image)
-                }, 'image/jpeg', 0.95)
+                // emit blob for storage in gallery
+                vm.$emit('caputure-image', blob);
+                postData(post_url, blob)
+            }, 'image/jpeg', 0.95)
         }
         // Take and send photo every x seconds
         window.setInterval(updateServer, 5000);

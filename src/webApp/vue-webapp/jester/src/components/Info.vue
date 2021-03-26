@@ -24,8 +24,7 @@
 <script>
 export default {
     name: "Info",
-    
-   
+    props: ["active_view"]
 }
 </script>
 
