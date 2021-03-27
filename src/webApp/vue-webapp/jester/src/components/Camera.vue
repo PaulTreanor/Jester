@@ -6,7 +6,25 @@
             </div>
             
             <canvas id="canvas"> </canvas>
-            <div>
+            
+            <b-container class="pointers text-center">
+                <p>Use hand gestures to control the camera!</p>
+                <b-row class="justify-content-md-center">
+                    <div class="gesture">
+                        <i class="icon far fa-hand-peace fa-2x"></i>
+                        <p>Stop</p>
+                    </div>
+                    <div class="gesture">
+                        <i class="icon far fa-thumbs-up fa-2x"></i>
+                        <p>Start</p>
+                    </div>
+                    <div class="gesture">
+                        <i class="icon far fa-hand-paper fa-2x"></i>
+                        <p>Stop</p>
+                    </div>
+                </b-row>
+            </b-container>
+            <div class="d-flex justify-content-center">
                 <button id="record" disabled>Start Recording</button>
             </div>
         <!---/b-container--->
@@ -162,8 +180,27 @@ export default {
         height: auto;
     }
 
+    .pointers {
+        width: auto;
+        border-style: solid;
+        
+    }
+
+    .gesture {
+        margin: 10px;
+    }
     
-    
+    @media only screen and (min-width: 600px) {
+        .pointers {
+            color: white;
+            left: 50%;
+            bottom: 0px;
+            position: absolute;
+            background: linear-gradient(180deg, rgba(16, 16, 16, 0.1) 0%, rgba(0, 0, 0, .5) 50%);
+            
+            
+        }
+    }
 
     
 </style>

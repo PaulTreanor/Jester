@@ -29,7 +29,7 @@ export default {
     };
   },
   methods: {
-        setActiveView(num) {
+    setActiveView(num) {
             this.active_view = num;
         },
         storeImage(blob) {
@@ -45,7 +45,7 @@ export default {
             this.recordedVideos.shift()
           }
         }
-    }
+  }
 }
 </script>
 
