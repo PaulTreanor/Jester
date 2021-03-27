@@ -3,6 +3,8 @@
 		<b-container class="center-block text-center">	
 			
 			<h2 class="pt-4 pb-4">Photos</h2>
+			
+			
 			<div v-if="this.photo.length === 0">
 				<p >No photos in gallery yet!</p>
 			</div>

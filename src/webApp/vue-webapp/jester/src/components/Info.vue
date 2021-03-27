@@ -8,18 +8,18 @@
             
             <h4>Taking Photos</h4>
             <div class="alert d-inline-flex">
-                <b-icon class="h3" icon="hand-thumbs-up"></b-icon>
+                <i class="icon far fa-hand-peace fa-2x"></i>
                 <p>A peace sign gesture takes a photo.</p>
             </div>
             
             <h4>Recording Videos</h4>
             <div class="alert d-inline-flex">
-                <b-icon class="h3" icon="hand-thumbs-up"></b-icon>
+                <i class="icon far fa-thumbs-up fa-2x"></i>
                 <p>A thumbs up gestures starts video recording.</p>
             </div>
             
             <div class="alert d-inline-flex">
-                <b-icon class="h3" icon="hand-thumbs-up"></b-icon>
+                <i class="icon far fa-hand-paper fa-2x"></i>
                 <p>A flat palm facing the camera stops the recording</p>
             </div>
             
@@ -63,7 +63,7 @@ export default {
         max-width: 500px;
     }
 
-    .b-icon {
+    .icon {
         margin-right: 20px;
         
     }
