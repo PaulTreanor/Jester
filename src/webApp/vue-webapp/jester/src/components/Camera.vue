@@ -115,7 +115,7 @@ export default {
             });
 
             response.text().then(function (text) {
-                tempAlert(text,1000);
+                tempAlert(text,3000);
                 if (text =="palm"){
                 stopRecording();
                 }

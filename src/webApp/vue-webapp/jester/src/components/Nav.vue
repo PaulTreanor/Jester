@@ -1,12 +1,13 @@
 <template>
 
     <div>
-        <b-navbar toggleable="lg" type="dark" variant="info">
+        <b-navbar toggleable="lg" type="dark" variant="success">
             <b-navbar-brand href="#" v-on:click="$emit('active-view', 1)">
                 <h2 class="brand">Jester</h2>
             </b-navbar-brand>
             <!----nav collapse btn --->
             <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+            
 
             <!---nav items could be disabled when you're in that specific section --->
             <!--- text is just placeholder for icons _---->
@@ -45,4 +46,12 @@ export default {
     .brand {
         color:white;
     }
+
+    
+
+    .bg-success {
+    background-color: purple !important;
+    }
+
+   
 </style>

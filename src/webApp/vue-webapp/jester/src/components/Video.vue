@@ -1,7 +1,9 @@
 <template>
-    <div>
+    <div class="text-center">
         <video id="recorded" playsinline loop></video>
-        <b-button class="mb-2" id="download" block variant="primary">Download</b-button>
+        <br>
+        
+        <b-button class="mb-2" id="downloadVideo" ><b-icon class="mr-2" icon="file-earmark-arrow-down"></b-icon>Download</b-button>
     </div>
 </template>
 
@@ -10,7 +12,7 @@ export default {
     name: "Video", 
     props: ['video'],
     mounted() {
-		const downloadButton = document.querySelector('button#download');
+		const downloadButton = document.querySelector('button#downloadVideo');
 		let recordedBlobs = this.video;
 		const recordedVideo = document.querySelector('video#recorded');
 		
@@ -32,7 +34,7 @@ export default {
                 document.body.removeChild(a);
                 window.URL.revokeObjectURL(url);
             }, 100);
-        });
+            });
 	}
 
 }
@@ -45,7 +47,9 @@ export default {
         max-width: 640px;
     }
 
-    #download {
+    #downloadVideo {
         max-width: 640px;
+        background-color: purple;
+        border-color: purple;
     }
 </style>

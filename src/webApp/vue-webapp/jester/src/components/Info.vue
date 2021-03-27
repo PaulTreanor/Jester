@@ -2,29 +2,28 @@
 <template>
     <main>
         <b-container class="info-col">
-            <h3 class="pt-2">Info</h3>
-            <p>Jester allows users to take photos and record videos without needing to touch their device.</p>
-            <p>Jester works on all devices with a camera and a modern internet browser.</p>
-            <hr>
-            <h4>Taking Photos</h4>
-            <img src="../assets/logo.png">
-            <p>Making a peace sign gesture triggers a photo to be taken. The gallery can hold up to 5 photos.</p>
-            <hr>
-            <h4>Recording Videos</h4>
-            <img src="../assets/logo.png">
-            <img src="../assets/logo.png">
+
+            <h4>What is Jester?</h4>
+            <p >Use hand gestures to take photos and videos with ease!</p>
             
-            <p>A thumbs up gestures triggers video recording.</p>
-            <p>Recording continues until the user makes a stop gesture with their flattened palm facing the devices camera (imagine the hand gesture a police officer would use to stop traffice).</p>
-            <p>The gallery can store 1 video at a time. </p>
-            <hr>
-            <h4>Making the most of Jester</h4>
-            <ol class="pl-3">
-                <li>Keep elbows in frame.</li>
-                <li>Use app in good lighting.</li>
-                <li>Use a modern internet browser.</li>
-                <li>Use right hand to make gestures.</li>
-            </ol>
+            <h4>Taking Photos</h4>
+            <div class="alert d-inline-flex">
+                <b-icon class="h3" icon="hand-thumbs-up"></b-icon>
+                <p>A peace sign gesture takes a photo.</p>
+            </div>
+            
+            <h4>Recording Videos</h4>
+            <div class="alert d-inline-flex">
+                <b-icon class="h3" icon="hand-thumbs-up"></b-icon>
+                <p>A thumbs up gestures starts video recording.</p>
+            </div>
+            
+            <div class="alert d-inline-flex">
+                <b-icon class="h3" icon="hand-thumbs-up"></b-icon>
+                <p>A flat palm facing the camera stops the recording</p>
+            </div>
+            
+
         </b-container>
     </main>
 </template>
@@ -39,5 +38,31 @@ export default {
 <style scoped>
     .info-col {
         max-width: 600px;
+    }
+
+    p {
+        padding:0px;
+        margin: 0px;
+        padding-top: 5px;
+    }
+
+    h4 {
+        padding-top: 25px;
+        padding-bottom: 5px;
+        color: purple;
+    }
+
+    .alert {
+        background: #FFFFFF;
+        border: 1px solid rgba(214, 214, 214, 0.15);
+        box-sizing: border-box;
+        box-shadow: 0px 4px 8px rgba(56, 56, 56, 0.15);
+        border-radius: 16px;
+        color: #2c3e50;
+        max-width: 500px;
+    }
+
+    .b-icon {
+        margin-right: 20px;
     }
 </style>

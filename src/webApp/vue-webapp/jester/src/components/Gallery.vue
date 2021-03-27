@@ -1,14 +1,15 @@
 <template>
 	<main>
-		<b-container >	
-			<h2 class="pt-2">Photos</h2>
+		<b-container class="center-block text-center">	
+			
+			<h2 class="pt-4 pb-4">Photos</h2>
 			<div v-if="this.photo.length === 0">
-				<p>No photos in gallery yet!</p>
+				<p >No photos in gallery yet!</p>
 			</div>
 			<div  v-bind:key="photo" v-for="photo in photo">
 				<Photo v-bind:photo="photo"/>
 			</div>
-			<h2 >Videos</h2>
+			<h2 class="pt-4 pb-4">Videos</h2>
 			<div v-if="this.video.length === 0">
 				<p>No Videos in gallery yet!</p>
 			</div>
@@ -34,6 +35,15 @@ export default {
 }
 </script>
 
+
+
 <style scoped>
+	h2 {
+        /*margin-top: 50px;	*/ 
+        color: purple;
+		
+    }
+
+	
 	
 </style>
