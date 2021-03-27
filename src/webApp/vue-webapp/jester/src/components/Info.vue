@@ -53,6 +53,7 @@ export default {
     }
 
     .alert {
+        margin-top: 5px;
         background: #FFFFFF;
         border: 1px solid rgba(214, 214, 214, 0.15);
         box-sizing: border-box;
@@ -64,5 +65,6 @@ export default {
 
     .b-icon {
         margin-right: 20px;
+        
     }
 </style>

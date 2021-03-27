@@ -3,7 +3,7 @@
     <div>
         <b-navbar toggleable="lg" type="dark" variant="success">
             <b-navbar-brand href="#" v-on:click="$emit('active-view', 1)">
-                <h2 class="brand">Jester</h2>
+                <h4 class="brand">Jester</h4>
             </b-navbar-brand>
             <!----nav collapse btn --->
             <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
@@ -15,13 +15,22 @@
             <b-collapse id="nav-collapse" is-nav>
                 <b-navbar-nav class="ml-auto">
                     <b-nav-item v-on:click="$emit('active-view', 1)">
-                        <p class="h2 mb-1" v-bind:class="{'is-active':activeView ===1}" v-b-tooltip.hover title="Camera" > <b-icon icon="camera"></b-icon></p>
+                        <div class="d-flex" v-bind:class="{'is-active':activeView ===1}" v-b-tooltip.hover title="Camera" > 
+                            <b-icon class="h3 mr-2"  icon="camera" shift-v="-4"></b-icon>  
+                            <p class="mt-1">Camera</p>                    
+                            </div>
                     </b-nav-item>
                     <b-nav-item v-on:click="$emit('active-view', 3)">
-                        <p class="h2 mb-1" v-bind:class="{'is-active':activeView ===3}" v-b-tooltip.hover title="Gallery"> <b-icon icon="card-image"></b-icon></p>
+                        <div class="d-flex" v-bind:class="{'is-active':activeView ===3}" v-b-tooltip.hover title="Gallery">
+                             <b-icon class="h3 mr-2" icon="card-image" shift-v="-4"></b-icon> 
+                             <p class="mt-1">Gallery</p>
+                            </div>
                     </b-nav-item>
                     <b-nav-item v-on:click="$emit('active-view', 2)">
-                        <p class="h4 mb-1" v-bind:class="{'is-active':activeView ===2}" v-b-tooltip.hover title="Information"> <b-icon icon="info-square" shift-v="-3"></b-icon></p>
+                        <div class="d-flex" v-bind:class="{'is-active':activeView ===2}" v-b-tooltip.hover title="Information">
+                             <b-icon class="h6 mr-2" icon="info-square" shift-v="-4"></b-icon> 
+                             <p class="mt-1">Information</p> 
+                             </div>
                     </b-nav-item>
                 </b-navbar-nav>
             </b-collapse>
@@ -39,6 +48,10 @@ export default {
 </script>
 
 <style scoped>
+    * {
+        margin-bottom: 0px;
+    }
+
     .is-active {
         color: white;
     }
@@ -47,11 +60,16 @@ export default {
         color:white;
     }
 
-    
+    h4 {
+        margin:0px;
+    }
 
     .bg-success {
     background-color: purple !important;
     }
 
+    .navbar {
+        padding: 0.2rem 1rem;
+    }
    
 </style>
