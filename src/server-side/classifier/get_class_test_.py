@@ -1,11 +1,13 @@
 import pytest 
 from get_class import getClass
 from pytest import ExitCode
+
 # To run all tests remove "-v -m" and the specific marker
 # python -m pytest .\get_class_tests.py -v -m marker
 
-# Tests run a variety of images through OpenPose and the classifier 
+# Tests run a variety of images through OpenPose and the classifier testing multiple components together
 # The images are not in the machine learning dataset 
+
 
 ############## IN DISTRIBUTION UNIT TESTS ######################
 
