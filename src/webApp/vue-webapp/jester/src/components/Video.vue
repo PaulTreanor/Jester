@@ -1,8 +1,7 @@
 <template>
     <div class="text-center">
         <video id="recorded" playsinline loop></video>
-        <br>
-        
+        <br>        
         <b-button class="mb-2" id="downloadVideo" ><b-icon class="mr-2" icon="file-earmark-arrow-down"></b-icon>Download</b-button>
     </div>
 </template>

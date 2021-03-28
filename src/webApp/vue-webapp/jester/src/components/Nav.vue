@@ -1,16 +1,10 @@
 <template>
-
     <div>
         <b-navbar toggleable="lg" type="dark" variant="success">
             <b-navbar-brand href="#" v-on:click="$emit('active-view', 1)">
                 <h4 class="brand">Jester</h4>
             </b-navbar-brand>
-            <!----nav collapse btn --->
             <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
-            
-
-            <!---nav items could be disabled when you're in that specific section --->
-            <!--- text is just placeholder for icons _---->
             
             <b-collapse id="nav-collapse" is-nav>
                 <b-navbar-nav class="ml-auto">
@@ -35,15 +29,13 @@
                 </b-navbar-nav>
             </b-collapse>
         </b-navbar>
-    </div>
-    
+    </div>   
 </template>
 
 <script>
 export default {
     name: "Nav",
-    props: ["active-view"],
-    
+    props: ["active-view"], 
 }
 </script>
 
@@ -71,5 +63,4 @@ export default {
     .navbar {
         padding: 0.2rem 1rem;
     }
-   
 </style>

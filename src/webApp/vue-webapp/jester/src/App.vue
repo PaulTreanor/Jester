@@ -30,25 +30,23 @@ export default {
     };
   },
   
-  methods: {
-
-    
+  methods: { 
     setActiveView(num) {
-            this.active_view = num;
-        },
-        storeImage(blob) {
-          this.photos.push(blob); 
-          if (this.photos.length > 2){
-            //drop first element in array
-            this.photos.shift()
-          }
-        },
-        storeVideo(blob) {
-          this.recordedVideos.push(blob);
-          if (this.recordedVideos.length > 1){
-            this.recordedVideos.shift()
-          }
-        }
+      this.active_view = num;
+    },
+    storeImage(blob) {
+      this.photos.push(blob); 
+      if (this.photos.length > 5){
+        //drop first element in array
+        this.photos.shift()
+      }
+    },
+    storeVideo(blob) {
+      this.recordedVideos.push(blob);
+      if (this.recordedVideos.length > 1){
+        this.recordedVideos.shift()
+      }
+    }
   }
 }
 </script>
@@ -71,5 +69,4 @@ export default {
     margin:0;
     padding:0;
 	}
-
 </style>

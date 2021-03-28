@@ -1,31 +1,26 @@
 <template>
     <main >
-        <!----b-container fluid="xl"---->
-            <div class="d-flex justify-content-center">
-                <video id="preview" playsinline autoplay muted></video>
-            </div>
-            
-            <canvas id="canvas"> </canvas>
-            
-            <b-container class="pointers text-center">
-                <p>Use hand gestures to control the camera!</p>
-                <b-row class="justify-content-md-center">
-                    <a id="photo"  class="gesture">
-                        <i class="icon far fa-hand-peace fa-2x"></i>
-                        <p>Photo</p>
-                    </a>
-                    <a id="record"  class="gesture">
-                        <i class="icon far fa-thumbs-up fa-2x"></i>
-                        <p>Start</p>
-                    </a>
-                    <a id="stop"  class="gesture">
-                        <i class="icon far fa-hand-paper fa-2x"></i>
-                        <p>Stop</p>
-                    </a>
-                </b-row>
-            </b-container>
-            
-        <!---/b-container--->
+        <div class="d-flex justify-content-center">
+            <video id="preview" playsinline autoplay muted></video>
+        </div>     
+        <canvas id="canvas"> </canvas>        
+        <b-container class="pointers text-center">
+            <p>Use gestures to control the camera!</p>
+            <b-row class="justify-content-md-center">
+                <a id="photo"  class="gesture">
+                    <i class="icon far fa-hand-peace fa-2x"></i>
+                    <p>Photo</p>
+                </a>
+                <a id="record"  class="gesture">
+                    <i class="icon far fa-thumbs-up fa-2x"></i>
+                    <p>Start</p>
+                </a>
+                <a id="stop"  class="gesture">
+                    <i class="icon far fa-hand-paper fa-2x"></i>
+                    <p>Stop</p>
+                </a>
+            </b-row>
+        </b-container>
     </main>
 </template>
 
@@ -68,44 +63,43 @@ export default {
         // Stop video
         stopButton.addEventListener('click', () => {     
             if (recording) {
-                 stopRecording();
+                stopRecording();
             }
         });
 
         function snapCanvas(){
-        context.drawImage(preview, 0, 0, 640,  480);
+            context.drawImage(preview, 0, 0, 640,  480);
         }
 
     
         // ------------- MEDIA STREAM FUNCTIONS ---------------//
 
         function handleDataAvailable(event) {
-        if (event.data && event.data.size > 0) {
-            recordedBlobs.push(event.data);
-        }
+            if (event.data && event.data.size > 0) {
+                recordedBlobs.push(event.data);
+            }
         }
 
         function startRecording(vidLength) {
             flashGesture(recordButton); 
-        tempAlert("Starting to record",2000);  
-        recordedBlobs = [];
-        mediaRecorder = new MediaRecorder(window.stream, {mimeType: 'video/webm'});
-        recording = true;
-        mediaRecorder.ondataavailable = handleDataAvailable;
-        mediaRecorder.start();
-        setTimeout(function(){
-            checkVideoStop();
+            tempAlert("Starting to record",2000);  
+            recordedBlobs = [];
+            mediaRecorder = new MediaRecorder(window.stream, {mimeType: 'video/webm'});
+            recording = true;
+            mediaRecorder.ondataavailable = handleDataAvailable;
+            mediaRecorder.start();
+            setTimeout(function(){
+                checkVideoStop();
             }, vidLength); 
-        
         }
 
         function stopRecording() { 
-        mediaRecorder.stop();
-        flashGesture(stopButton); 
-        tempAlert("Stopping recording",2000); 
-        recording = false;
-        // emit recorded video blob 
-        vm.$emit('recorded-video', recordedBlobs);  
+            mediaRecorder.stop();
+            flashGesture(stopButton); 
+            tempAlert("Stopping recording",2000); 
+            recording = false;
+            // emit recorded video blob 
+            vm.$emit('recorded-video', recordedBlobs);  
         }
 
         function pauseMedia() {
@@ -128,12 +122,12 @@ export default {
 
         // Access camera and display preview at id='preview'
         if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-        navigator.mediaDevices.getUserMedia({ video: true, audio: true }).then(function(stream) {
-            recordButton.disabled = false;
-            window.stream = stream;
-            // Play video stream in preview box
-            preview.srcObject = stream;
-        });
+            navigator.mediaDevices.getUserMedia({ video: true, audio: true }).then(function(stream) {
+                recordButton.disabled = false;
+                window.stream = stream;
+                // Play video stream in preview box
+                preview.srcObject = stream;
+            });
         }
 
         // Send screenshots to server
@@ -143,8 +137,8 @@ export default {
             console.log(image);
 
             const response = await fetch(post_url, {
-            method: 'POST',
-            body: formData
+                method: 'POST',
+                body: formData
             });
 
             response.text().then(function (text) {
@@ -158,7 +152,7 @@ export default {
                 if (text == "thumbs_up"){
                     startRecording(vidLength);
                 }
-                //resume media will do nothing unless video on and paused 
+                // resumemedia() will do nothing unless video on and paused 
                 resumeMedia();               
             });
         }
@@ -168,15 +162,15 @@ export default {
             popup.setAttribute("style","position:absolute;top:20%;left:45%;border-style: solid;background-color:white;padding:10px");
             popup.innerHTML = msg;
             setTimeout(function(){
-            popup.parentNode.removeChild(popup);
-            },duration);
+                popup.parentNode.removeChild(popup);
+                },duration);
             document.body.appendChild(popup);
         }
 
         function flashGesture(element){
-            element.className += ' bigger';
+            element.className += ' feedback';
             setTimeout(function(){
-                element.className = element.className.replace(/\bbigger\b/, '');
+                element.className = element.className.replace(/\bfeedback\b/, '');
             }, 900);
         }
 
@@ -204,7 +198,6 @@ export default {
 </script>
 
 <style scoped>
-
     #preview {
         width: 100%;
         max-width: 900px;
@@ -222,22 +215,15 @@ export default {
         color: black;
     }
 
-    
-
-    
-
     @keyframes spin {
-    from {
-        transform:rotate(0deg);
+        from {
+            transform:rotate(0deg);
+        }
+        to {
+            transform:rotate(360deg);
+        }
     }
-    to {
-        transform:rotate(360deg);
-    }
-}
-    
-
-   
-    
+  
     @media only screen and (min-width: 600px) {
         .pointers {
             border-style: solid;
@@ -247,16 +233,15 @@ export default {
             position: absolute;
             background: linear-gradient(180deg, rgba(16, 16, 16, 0.1) 0%, rgba(0, 0, 0, .5) 50%);            
         }
-
+        
         .gesture {
             color: white;
         }
     }
 
-    .bigger {
+    .feedback {
         opacity: 1;
-        color: purple;
-        
+        color: purple;    
         transition-property: opacity, color;
         transition-duration: 1s;
         transition-delay: 0s;
@@ -264,7 +249,5 @@ export default {
         animation-duration: 800ms;
         animation-iteration-count: infinite;
         animation-timing-function: linear; 
-    }
-
-    
+    } 
 </style>

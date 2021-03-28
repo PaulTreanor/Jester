@@ -2,7 +2,6 @@
 <template>
     <main>
         <b-container class="info-col">
-
             <h4>What is Jester?</h4>
             <p >Use hand gestures to take photos and videos with ease!</p>
             
@@ -22,8 +21,6 @@
                 <i class="icon far fa-hand-paper fa-2x"></i>
                 <p>A flat palm facing the camera stops the recording</p>
             </div>
-            
-
         </b-container>
     </main>
 </template>
@@ -64,7 +61,6 @@ export default {
     }
 
     .icon {
-        margin-right: 20px;
-        
+        margin-right: 20px;      
     }
 </style>

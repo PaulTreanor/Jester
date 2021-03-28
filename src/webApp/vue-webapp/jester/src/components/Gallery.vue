@@ -1,10 +1,7 @@
 <template>
 	<main>
-		<b-container class="center-block text-center">	
-			
+		<b-container class="center-block text-center">		
 			<h2 class="pt-4 pb-4">Photos</h2>
-			
-			
 			<div v-if="this.photo.length === 0">
 				<p >No photos in gallery yet!</p>
 			</div>
@@ -42,10 +39,6 @@ export default {
 <style scoped>
 	h2 {
         /*margin-top: 50px;	*/ 
-        color: purple;
-		
+        color: purple;	
     }
-
-	
-	
 </style>
