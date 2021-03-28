@@ -86,6 +86,7 @@ export default {
         }
 
         function startRecording(vidLength) {
+            flashGesture(recordButton); 
         tempAlert("Starting to record",2000);  
         recordedBlobs = [];
         mediaRecorder = new MediaRecorder(window.stream, {mimeType: 'video/webm'});
@@ -100,6 +101,7 @@ export default {
 
         function stopRecording() { 
         mediaRecorder.stop();
+        flashGesture(stopButton); 
         tempAlert("Stopping recording",2000); 
         recording = false;
         // emit recorded video blob 
@@ -121,7 +123,7 @@ export default {
 
         function checkVideoStop() {
             pauseMedia();   // Pausing allows chance for server to update
-            
+            updateServer();
         }
 
         // Access camera and display preview at id='preview'
@@ -148,13 +150,13 @@ export default {
             response.text().then(function (text) {
                 tempAlert(text,3000);
                 if (text =="palm"){
-                stopRecording();
+                    stopRecording();
                 }
                 if (text == "peace"){
-                takePhoto();
+                    takePhoto();
                 }
                 if (text == "thumbs_up"){
-                startRecording(vidLength);
+                    startRecording(vidLength);
                 }
                 //resume media will do nothing unless video on and paused 
                 resumeMedia();               
@@ -171,8 +173,16 @@ export default {
             document.body.appendChild(popup);
         }
 
+        function flashGesture(element){
+            element.className += ' bigger';
+            setTimeout(function(){
+                element.className = element.className.replace(/\bbigger\b/, '');
+            }, 900);
+        }
+
         function takePhoto(){
-            tempAlert("Taking photo!",2000);    
+            tempAlert("Taking photo!",2000);  
+            flashGesture(photoButton);  
             snapCanvas()
             canvas.toBlob(function(blob){
                 // emit blob for storage in gallery
@@ -188,12 +198,13 @@ export default {
             }, 'image/jpeg', 0.95)
         }
         // Take and send photo every x seconds
-        window.setInterval(updateServer, 10000);
+        window.setInterval(updateServer, 15000);
     }
 }
 </script>
 
 <style scoped>
+
     #preview {
         width: 100%;
         max-width: 900px;
@@ -202,22 +213,57 @@ export default {
 
     .pointers {
         width: auto;
-        border-style: solid;
         
     }
 
     .gesture {
         margin: 10px;
+        opacity: 0.4;
+        color: black;
     }
+
+    
+
+    
+
+    @keyframes spin {
+    from {
+        transform:rotate(0deg);
+    }
+    to {
+        transform:rotate(360deg);
+    }
+}
+    
+
+   
     
     @media only screen and (min-width: 600px) {
         .pointers {
+            border-style: solid;
             color: white;
             left: 50%;
             bottom: 0px;
             position: absolute;
             background: linear-gradient(180deg, rgba(16, 16, 16, 0.1) 0%, rgba(0, 0, 0, .5) 50%);            
         }
+
+        .gesture {
+            color: white;
+        }
+    }
+
+    .bigger {
+        opacity: 1;
+        color: purple;
+        
+        transition-property: opacity, color;
+        transition-duration: 1s;
+        transition-delay: 0s;
+        animation-name: spin;
+        animation-duration: 800ms;
+        animation-iteration-count: infinite;
+        animation-timing-function: linear; 
     }
 
     

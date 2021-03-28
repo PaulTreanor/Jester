@@ -26,9 +26,13 @@ export default {
       active_view: 1,
       photos: [],
       recordedVideos: [], 
+
     };
   },
+  
   methods: {
+
+    
     setActiveView(num) {
             this.active_view = num;
         },
