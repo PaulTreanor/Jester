@@ -10,23 +10,21 @@
             <b-container class="pointers text-center">
                 <p>Use hand gestures to control the camera!</p>
                 <b-row class="justify-content-md-center">
-                    <div class="gesture">
+                    <a id="photo"  class="gesture">
                         <i class="icon far fa-hand-peace fa-2x"></i>
-                        <p>Stop</p>
-                    </div>
-                    <div class="gesture">
+                        <p>Photo</p>
+                    </a>
+                    <a id="record"  class="gesture">
                         <i class="icon far fa-thumbs-up fa-2x"></i>
                         <p>Start</p>
-                    </div>
-                    <div class="gesture">
+                    </a>
+                    <a id="stop"  class="gesture">
                         <i class="icon far fa-hand-paper fa-2x"></i>
                         <p>Stop</p>
-                    </div>
+                    </a>
                 </b-row>
             </b-container>
-            <div class="d-flex justify-content-center">
-                <button id="record" disabled>Start Recording</button>
-            </div>
+            
         <!---/b-container--->
     </main>
 </template>
@@ -37,7 +35,7 @@ export default {
     mounted() {
         let mediaRecorder;
         let recordedBlobs;
-        let vidLength = 3000;
+        let vidLength = 10000;
         var canvas = document.getElementById('canvas');
         //Don't display the canvas
         canvas.style.display="none";
@@ -45,23 +43,36 @@ export default {
         context.canvas.width = 640;
         context.canvas.height = 480;
         var vm = this;
-        const recordButton = document.querySelector('button#record');
+        const photoButton = document.querySelector('#photo');
+        const recordButton = document.querySelector('#record');
+        const stopButton = document.querySelector('#stop');
         const preview = document.querySelector('video#preview');
         var post_url = "http://192.168.43.105:5000/image";
+        var recording = false;
 
 
-        // Start/stop video
-        recordButton.addEventListener('click', () => {
-        tempAlert("This is your Alert",1000);
-       
-        if (recordButton.textContent === 'Start Recording') {
-            startRecording(vidLength);
-        } else {
-            stopRecording();
-        }
+        // Start video
+        photoButton.addEventListener('click', () => {        
+            if (!recording) {       // Can't take photo and video at same time
+                takePhoto();
+            } 
         });
 
-        function takePhoto(){
+        // Start video
+        recordButton.addEventListener('click', () => {          
+            if (!recording) {
+                startRecording(vidLength);
+            } 
+        });
+
+        // Stop video
+        stopButton.addEventListener('click', () => {     
+            if (recording) {
+                 stopRecording();
+            }
+        });
+
+        function snapCanvas(){
         context.drawImage(preview, 0, 0, 640,  480);
         }
 
@@ -75,9 +86,10 @@ export default {
         }
 
         function startRecording(vidLength) {
+        tempAlert("Starting to record",2000);  
         recordedBlobs = [];
         mediaRecorder = new MediaRecorder(window.stream, {mimeType: 'video/webm'});
-        recordButton.textContent = 'Stop Recording';
+        recording = true;
         mediaRecorder.ondataavailable = handleDataAvailable;
         mediaRecorder.start();
         setTimeout(function(){
@@ -86,9 +98,10 @@ export default {
         
         }
 
-        function stopRecording() {
+        function stopRecording() { 
         mediaRecorder.stop();
-        recordButton.textContent = 'Start Recording';
+        tempAlert("Stopping recording",2000); 
+        recording = false;
         // emit recorded video blob 
         vm.$emit('recorded-video', recordedBlobs);  
         }
@@ -107,8 +120,8 @@ export default {
 
 
         function checkVideoStop() {
-            pauseMedia();
-            updateServer();
+            pauseMedia();   // Pausing allows chance for server to update
+            
         }
 
         // Access camera and display preview at id='preview'
@@ -157,18 +170,25 @@ export default {
             },duration);
             document.body.appendChild(popup);
         }
-        
-        function updateServer(){
-            
-            takePhoto();
+
+        function takePhoto(){
+            tempAlert("Taking photo!",2000);    
+            snapCanvas()
             canvas.toBlob(function(blob){
                 // emit blob for storage in gallery
                 vm.$emit('caputure-image', blob);
+            }, 'image/jpeg', 0.95)
+        }
+        
+        function updateServer(){            
+            snapCanvas();
+            canvas.toBlob(function(blob){
+                // post regular snapshots to server for gesture analysis
                 postData(post_url, blob)
             }, 'image/jpeg', 0.95)
         }
         // Take and send photo every x seconds
-        window.setInterval(updateServer, 5000);
+        window.setInterval(updateServer, 10000);
     }
 }
 </script>
@@ -196,9 +216,7 @@ export default {
             left: 50%;
             bottom: 0px;
             position: absolute;
-            background: linear-gradient(180deg, rgba(16, 16, 16, 0.1) 0%, rgba(0, 0, 0, .5) 50%);
-            
-            
+            background: linear-gradient(180deg, rgba(16, 16, 16, 0.1) 0%, rgba(0, 0, 0, .5) 50%);            
         }
     }
 
