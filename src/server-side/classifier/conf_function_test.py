@@ -38,7 +38,7 @@ def test_conf_ldofs(get_neighbours_list):
 
 #################### LOCAL OUTLIER FACTOR ALGORITHM FUNCTION TESTS ##################
 
-def test_rDistance(get_neighbours_list, get_A):
+def test_ReachableDistance(get_neighbours_list, get_A):
 	# A is value of selected hand gesture
 	A = get_A
  	# B is one of As nearest neighbour 
@@ -48,11 +48,11 @@ def test_rDistance(get_neighbours_list, get_A):
 	r_distance = conf_functions.rDistance(A, B, classifier, k)
 	assert r_distance == 45.454979859196946
 
-def test_lrd(get_neighbours_list, get_A):
+def test_local_r_density(get_neighbours_list, get_A):
 	nearest_neighbours = get_neighbours_list
 	A = get_A
 	k = 5	# Number of nearest neighbours A is compared to
 	classifier = knn(k)
-	local_reachability_distance = conf_functions.lrd(A, nearest_neighbours, classifier, k)
+	local_reachability_distance = conf_functions.local_r_density(A, nearest_neighbours, classifier, k)
 	assert local_reachability_distance == 0.014146622167822212
 

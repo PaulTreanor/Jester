@@ -2,11 +2,11 @@ from os import listdir
 from pathlib import Path
 from os import rename
 
-#changes all filenames in each gesture folder to class label
-#subfolders inside images folder should be named "palm", "peace", and "thumbs_up"
-#run this program in same folder as images folder 
+# Changes all filenames in each gesture folder to class label
+# Subfolders inside images folder should be named "palm", "peace", and "thumbs_up"
+# Run this program in same folder as images folder 
 
-sub_dirs = [f for f in listdir('images')]
+sub_dirs = [file for file in listdir('images')]
 
 for sub_dir in sub_dirs:
 	dir_path = 'images/' + sub_dir

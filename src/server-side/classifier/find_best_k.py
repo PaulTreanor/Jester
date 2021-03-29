@@ -6,29 +6,29 @@ from sklearn.neighbors import KNeighborsClassifier
 ########## To find most accurate value of K for KNN (using library knn) ##############
 
 def knn(k):
-	df = pd.read_csv("..\\transformed_dataset.csv")
-	x = df.drop(["image_name", "class_name"], axis=1)
-	y = df.class_name
+	dataframe = pd.read_csv("..\\transformed_dataset.csv")
+	x = dataframe.drop(["image_name", "class_name"], axis=1)			# Training KNN on all attributes except image_name and class_name
+	y = dataframe.class_name											# Trying to find class_name
 
 	x_train, x_test, y_train, y_test = train_test_split(x, y, test_size = 0.3, random_state = 1)
 
-	clf = KNeighborsClassifier(n_neighbors=k)
-	clf.fit(x_train, y_train)
+	classifier = KNeighborsClassifier(n_neighbors=k)
+	classifier.fit(x_train, y_train)
 
-	y_pred = clf.predict(x_test)
+	y_predrict = classifier.predict(x_test)
 
-	accuracy = metrics.accuracy_score(y_test, y_pred)
+	accuracy = metrics.accuracy_score(y_test, y_predrict)
 	print(str(k) + " accuracy: " + str(accuracy))
-	return clf, accuracy
+	return classifier, accuracy
 
 
-
+# Iterate through values of K and run algorithm each time, print results
 def find_best_k():
 	k = 1
 	max_accuracy = 0
 	best_k = 0
 	while k < 100:
-		clf, accuracy = knn(k)
+		classifier, accuracy = knn(k)
 		if accuracy > max_accuracy:
 			max_accuracy = accuracy
 			best_k = k

@@ -5,7 +5,7 @@ from get_class import getClass
 from flask_cors import CORS
 
 api = Flask(__name__)
-CORS(api)
+CORS(api)		# Ignores any CORS issues 
 root_upload_path = 'C:\\Users\\trean\\Desktop\\College\\4YP\\2021-ca400-ptreanor-cgorman\\src\\server-side\\classifier\\uploads'
 ALLOWED_EXTENSIONS = {'.jpg', '.jpeg'}
 
@@ -27,7 +27,6 @@ def post_file(filename):
 
 	# Delete directory
 	os.rmdir(upload_path)
-
 	# 201 - created 
 	return classification, 201
 

@@ -3,12 +3,12 @@ import os
 from data_transformer import translate, enlarge, rotate
 import time
 from knn import knn
-from conf_functions import lib_lof, get_conf_LoF, get_conf_ldofs
+from conf_functions import library_local_outlier_factor, get_conf_LoF, get_conf_ldofs
 
-# Gestures below min conf are likely to be OOD 
-# Recommended min_conf values for k=5 : (lib_lof: -1.3), (lof: -3), (ldof: -25)
+# Gestures below min confidence are likely to be OOD 
+# Recommended min_confidence values for k=5 : (lib_lof: -1.3), (lof: -3), (ldof: -25)
 # K should be <= 5
-min_conf = -3																								
+min_confidence = -3																								
 k = 5																																						
 
 # Global image_path only used when running program directly
@@ -45,9 +45,9 @@ def processGestureData(gesture_data):
 
 
 def classify(gesture_data):
-	clf = knn(k)
-	classification, nn = clf.predict(gesture_data)
-	conf = get_conf_LoF(gesture_data[0], nn, clf, k)  
+	classifier = knn(k)
+	classification, nn = classifier.predict(gesture_data)
+	conf = get_conf_LoF(gesture_data[0], nn, classifier, k)  
 	#conf = get_conf_ldofs(nn)
 	#lof = lib_lof()
 	#conf = lof.decision_function(gesture_data)[0]
@@ -56,29 +56,26 @@ def classify(gesture_data):
 
 def getClass(image_path=image_path):
 	# Run OpenPose must run from directory it is in
-	cwd = os.getcwd() 
+	current_working_dir = os.getcwd() 
 	runOpenPose(image_path)
-	os.chdir(cwd)
+	os.chdir(current_working_dir)
 
 	gesture_data = getJsonData()
-
 	path = image_path + "\\image.jpg"
 
 	if gesture_data == "noPeople":
 		os.remove(path)
 		return "OOD"
 
-	# Delete image from server
-	
-	# Don't delete image if ad hoc testing get_class
+	# Delete image from server if not running main (ie. debugging)
 	if __name__ != '__main__':
 		os.remove(path)
 
 	# Default min threshold for displaying in OpenPose is 0.5 (sum of 10.5 for 21 total keypoints), lower value of 5 works better for this application  											  
 	min_total = 5                                        																		
 	total = 0
-	for val in gesture_data[3::3]:
-		total += val
+	for value in gesture_data[3::3]:	# Every 3rd value is a confidence value for a keypoint, others are x and y coordinates
+		total += value
 	if total < min_total:
 		return "OOD"
 
@@ -86,16 +83,16 @@ def getClass(image_path=image_path):
 	del gesture_data[3::3]
 
 	# Check if hand gesture detected by OpenPose
-	for val in gesture_data:
-		if val == "0":
+	for value in gesture_data:
+		if value == "0":
 			return "OOD"
 
 	gesture_data = processGestureData(gesture_data)
 	gesture_data = [gesture_data[1:]]
-	classification, conf = classify(gesture_data)
-	print(conf)
+	classification, confidence = classify(gesture_data)
+	print(confidence)
 	# Check if confidence value is acceptable
-	if conf < min_conf:
+	if confidence < min_confidence:
 		return "OOD"
 
 	return classification

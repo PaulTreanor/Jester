@@ -7,7 +7,7 @@ import math
 def dist(p1, p2):
 	return math.sqrt((p1[0]-p2[0])**2 + (p1[1]-p2[1])**2)
 
-
+# Finds angle between a point 9 on the hand gesture (base of middle finger) and origin to determine how much to rotate by
 def findDegrees(point_9):
 	dotproduct = sum((a*b) for a, b in zip((0,10), point_9))
 	degrees = math.acos(dotproduct / 100)
