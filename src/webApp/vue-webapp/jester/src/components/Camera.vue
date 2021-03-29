@@ -6,7 +6,7 @@
         <canvas id="canvas"> </canvas>        
         <b-container class="pointers text-center">
             <p>Use gestures to control the camera!</p>
-            <b-row class="justify-content-md-center">
+            <b-row class="d-flex justify-content-center">
                 <a id="photo"  class="gesture">
                     <i class="icon far fa-hand-peace fa-2x"></i>
                     <p>Photo</p>
@@ -142,7 +142,6 @@ export default {
             });
 
             response.text().then(function (text) {
-                tempAlert(text,3000);
                 if (text =="palm"){
                     stopRecording();
                 }
@@ -192,7 +191,7 @@ export default {
             }, 'image/jpeg', 0.95)
         }
         // Take and send photo every x seconds
-        window.setInterval(updateServer, 15000);
+        window.setInterval(updateServer, 9000);
     }
 }
 </script>
