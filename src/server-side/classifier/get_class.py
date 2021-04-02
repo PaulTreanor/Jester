@@ -5,6 +5,7 @@ import time
 from knn import knn
 from conf_functions import library_local_outlier_factor, get_conf_LoF, get_conf_ldofs
 import os
+import configparser
 
 # Gestures below min confidence are likely to be OOD 
 # Recommended min_confidence values for k=5 : (lib_lof: -1.3), (lof: -3), (ldof: -25)
@@ -16,10 +17,15 @@ k = 5
 output_path = os.path.realpath('/openposeJSON')
 json_path = os.path.realpath('/openposeJSON/image_keypoints.json')
 
+# OpenPose path 
+config = configparser.ConfigParser()
+config.read('jester.ini')
+openpose_root_location = config['Jester']['openpose_root_location']
+
 # Write and run OpenPose command
 def runOpenPose(image_path):
 	command = 'bin\\OpenPoseDemo.exe --image_dir ' + image_path + ' --hand --net_resolution "-1x320" --write_json ' + output_path + '\n'
-	os.chdir('C:\\Users\\trean\\Documents\\openpose_1.6\\openpose')
+	os.chdir(openpose_root_location)
 	os.system(command)
 
 
