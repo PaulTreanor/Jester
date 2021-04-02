@@ -4,6 +4,7 @@ from data_transformer import translate, enlarge, rotate
 import time
 from knn import knn
 from conf_functions import library_local_outlier_factor, get_conf_LoF, get_conf_ldofs
+import os
 
 # Gestures below min confidence are likely to be OOD 
 # Recommended min_confidence values for k=5 : (lib_lof: -1.3), (lof: -3), (ldof: -25)
@@ -11,13 +12,12 @@ from conf_functions import library_local_outlier_factor, get_conf_LoF, get_conf_
 min_confidence = -3																								
 k = 5																																						
 
-# Global image_path only used when running program directly
-image_path = 'C:\\Users\\trean\\Desktop\\College\\4YP\\2021-ca400-ptreanor-cgorman\\src\\server-side\\test-images\\ood'
-output_path = 'C:\\Users\\trean\\Desktop\\College\\4YP\\2021-ca400-ptreanor-cgorman\\src\\server-side\\classifier\\openposeJSON'
-json_path = 'C:\\Users\\trean\\Desktop\\College\\4YP\\2021-ca400-ptreanor-cgorman\\src\\server-side\\classifier\\openposeJSON\\image_keypoints.json'
+# Using relative file paths for output
+output_path = os.path.realpath('/openposeJSON')
+json_path = os.path.realpath('/openposeJSON/image_keypoints.json')
 
 # Write and run OpenPose command
-def runOpenPose(image_path=image_path):
+def runOpenPose(image_path):
 	command = 'bin\\OpenPoseDemo.exe --image_dir ' + image_path + ' --hand --net_resolution "-1x320" --write_json ' + output_path + '\n'
 	os.chdir('C:\\Users\\trean\\Documents\\openpose_1.6\\openpose')
 	os.system(command)
@@ -54,7 +54,7 @@ def classify(gesture_data):
 	return classification, conf
 
 
-def getClass(image_path=image_path):
+def getClass(image_path):
 	# Run OpenPose must run from directory it is in
 	current_working_dir = os.getcwd() 
 	runOpenPose(image_path)
@@ -97,5 +97,6 @@ def getClass(image_path=image_path):
 
 	return classification
 
-if __name__ == '__main__':					
-	print(getClass())
+if __name__ == '__main__':
+	image_path = 'C:\\Users\\trean\\Desktop\\College\\4YP\\2021-ca400-ptreanor-cgorman\\src\\server-side\\test-images\\ood'					
+	print(getClass(image_path))
