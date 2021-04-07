@@ -4,6 +4,39 @@ This blog is to document the research and design done during the development of 
 
 _____
 
+## System Front End - Paul - 30/03/2021
+By week 8 I had to stop working on the classifier as there was still no progress made on the system's front end.
+
+### Why Web Tech?
+
+A webpage seemed like a good choice for the system's front end for a number of reasons:
+1.  I have experience with HTML, JavaScript, and CSS.
+2.  Web technologies have excellent documentation via the MDN.
+3.  I was under time pressure and JS is an easy language to develop fast prototypes with.
+4.  The webpage would not be limited to any single platform.
+
+### HTML/JavaScript Prototype
+Before investing too much time into an upfront design I wanted to ensure that all the requirements of the system could be implemented using HTML and JavaScript. I began researching the getUserMedia() method in JS and seeing if I could hack something together that works.
+
+I made a simple prototype that had all the necessary features and could be tested through the use of buttons (relying only on gestures was clunky when it came to testing the prototype). The prototype was able to display the camera preview, take pictures, start and stop video recording, and send images across the network to be classified via HTTP POST requests.
+
+One issue I faced was stopping the video using gestures. Recording a video stream and sending a preview snapshot to the classifier would require concurrency, which isn't possible in JavaScript. I was able to overcome this by using a setTimeout() to pause the video recording in set intervals, then take and send a preview snapshot, and then stop or resume the video recording based on the classification of that snapshot. If the snapshot was a stop gesture, the video stopped, otherwise the recording resumed.
+
+### Vue.js Implementation
+Once I confirmed that HTML and JavaScript could be used to build the system I began making a more detailed design of the front end. I decided to go with Vue.js as a frontend framework, which would make sharing media across the app's components easier. Vue.js also allows components to be shown on a single dynamically rendered webpage, which allows for a better user experience.
+
+     Gallery Mock-up      |  Mobile Mock-up 		| Desktop Mock-up 
+:-------------------------:|:-------------------------:|:-------------------------:
+![](images/mockup4_small.jpg)  |  ![](images/mockup1_small.jpg)|  ![](images/mockup3_small.jpg)
+
+To design the user interface I began sketching wireframes, then developing mock-ups in Figma. I created several iterations of the mock-ups before creating the app itself.
+
+
+### How it works 
+The app displays a camera preview in a <video> tag. This preview allows the user to see themselves in the frame of the camera. Snapshots of the preview are taken at a set intervals and posted to the server, which returns a classification. Depending on the classification a specific camera instruction will be carried out. Photos and videos taken are displayed in the app's gallery component where they can be downloaded.
+![](images/dataflow_diagram.png)
+![](images/frontend_sequence.png)
+
 ## Git Hooks and Automated Testing - Paul - 24/03/2021
 Git hooks are a way to run useful scripts before git events such as commiting or merging occur. I created some to help with our project workflow. 
 
