@@ -6,8 +6,13 @@ from flask_cors import CORS
 
 api = Flask(__name__)
 CORS(api)		# Ignores any CORS issues 
-root_upload_path = 'C:\\Users\\trean\\Desktop\\College\\4YP\\2021-ca400-ptreanor-cgorman\\src\\server-side\\classifier\\uploads'
-ALLOWED_EXTENSIONS = {'.jpg', '.jpeg'}
+import configparser
+# Read image upload path from jester.ini
+config = configparser.ConfigParser()
+config.read('jester.ini')
+root_upload_path = config['Jester']['classifier_folder'] + '/uploads'
+
+ALLOWED_EXTENSIONS = {'.jpg', '.jpeg', ""}
 
 @api.route("/<filename>", methods=["POST"])
 def post_file(filename):
