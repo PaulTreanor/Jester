@@ -3,7 +3,7 @@
     <main>
         <b-container class="info-col">
             <h4>What is Jester?</h4>
-            <p >Use hand gestures to take photos and videos with ease!</p>
+            <p >Jester is an app that allows you take photos and videos using hand gestures!</p>
             
             <h4>Taking Photos</h4>
             <div class="alert d-inline-flex">
