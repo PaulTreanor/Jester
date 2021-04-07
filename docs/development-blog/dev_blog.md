@@ -27,7 +27,7 @@ Once I confirmed that HTML and JavaScript could be used to build the system I be
 
      Gallery Mock-up      |  Mobile Mock-up 		| Desktop Mock-up 
 :-------------------------:|:-------------------------:|:-------------------------:
-![](images/mockup4_small.jpg)  |  ![](images/mockup1_small.jpg)|  ![](images/mockup3_small.jpg)
+| ![](images/mockup4_small.jpg)  |  ![](images/mockup1_small.jpg)|  ![](images/mockup3_small.jpg)| 
 
 To design the user interface I began sketching wireframes, then developing mock-ups in Figma. I created several iterations of the mock-ups before creating the app itself.
 
