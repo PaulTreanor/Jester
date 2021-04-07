@@ -25,7 +25,7 @@ One issue I faced was stopping the video using gestures. Recording a video strea
 ### Vue.js Implementation
 Once I confirmed that HTML and JavaScript could be used to build the system I began making a more detailed design of the front end. I decided to go with Vue.js as a frontend framework, which would make sharing media across the app's components easier. Vue.js also allows components to be shown on a single dynamically rendered webpage, which allows for a better user experience.
 
-![](images/mockup4_small.jpg
+![](images/mockup4_small.jpg)
 ![](images/mockup1_small.jpg)
 ![](images/mockup3_small.jpg)
 
