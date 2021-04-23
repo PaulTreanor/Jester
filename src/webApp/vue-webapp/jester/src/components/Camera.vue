@@ -197,15 +197,25 @@ export default {
 </script>
 
 <style scoped>
-    #preview {
-        width: 100%;
-        max-width: 900px;
-        height: auto;
-    }
-
+   
     .pointers {
         width: auto;
         
+        
+    }
+
+    @media only screen and (max-width: 768px) {
+        #preview {
+            width: 100%;
+            max-width: 900px;
+        }
+
+    }
+    @media only screen and (min-width: 768px) {
+        #preview {
+            height: 100vh;
+        }
+
     }
 
     .gesture {
@@ -230,7 +240,8 @@ export default {
             left: 50%;
             bottom: 0px;
             position: absolute;
-            background: linear-gradient(180deg, rgba(16, 16, 16, 0.1) 0%, rgba(0, 0, 0, .5) 50%);            
+            background: linear-gradient(180deg, rgba(16, 16, 16, 0.1) 0%, rgba(0, 0, 0, .5) 50%);  
+            transform: translate(-50%);          
         }
         
         .gesture {
