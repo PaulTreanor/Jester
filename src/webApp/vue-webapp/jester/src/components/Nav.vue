@@ -9,22 +9,22 @@
             <b-collapse id="nav-collapse" is-nav>
                 <b-navbar-nav class="ml-auto">
                     <b-nav-item v-on:click="$emit('active-view', 1)">
-                        <div class="d-flex" v-bind:class="{'is-active':activeView ===1}" > 
-                            <b-icon class="h3 mr-2"  icon="camera" shift-v="-4"></b-icon>  
+                        <div class="d-flex" v-bind:class="{'is-active':activeView ===1}" id="cameraButton"> 
+                            <b-icon class="h3 mr-2" icon="camera" shift-v="-4"></b-icon>  
                             <p class="mt-1">Camera</p>                    
-                            </div>
+                        </div>
                     </b-nav-item>
                     <b-nav-item v-on:click="$emit('active-view', 3)">
-                        <div class="d-flex" v-bind:class="{'is-active':activeView ===3}">
+                        <div class="d-flex" v-bind:class="{'is-active':activeView ===3}" id="galleryButton">
                              <b-icon class="h3 mr-2" icon="card-image" shift-v="-4"></b-icon> 
                              <p class="mt-1">Gallery</p>
-                            </div>
+                        </div>
                     </b-nav-item>
                     <b-nav-item v-on:click="$emit('active-view', 2)">
-                        <div class="d-flex" v-bind:class="{'is-active':activeView ===2}">
+                        <div class="d-flex" v-bind:class="{'is-active':activeView ===2}" id="infoButton">
                              <b-icon class="h6 mr-2" icon="info-square" shift-v="-4"></b-icon> 
                              <p class="mt-1">Information</p> 
-                             </div>
+                            </div>
                     </b-nav-item>
                 </b-navbar-nav>
             </b-collapse>
