@@ -32,7 +32,6 @@ export default {
         let recordedBlobs;
         let vidLength = 10000;
         var canvas = document.getElementById('canvas');
-        //Don't display the canvas
         canvas.style.display="none";
         var context = canvas.getContext('2d');
         context.canvas.width = 640;
@@ -70,7 +69,6 @@ export default {
         function snapCanvas(){
             context.drawImage(preview, 0, 0, 640,  480);
         }
-
     
         // ------------- MEDIA STREAM FUNCTIONS ---------------//
 
@@ -82,7 +80,7 @@ export default {
 
         function startRecording(vidLength) {
             flashGesture(recordButton); 
-            tempAlert("Starting to record",2000);  
+            tempAlert("Starting to record", 2000);  
             recordedBlobs = [];
             mediaRecorder = new MediaRecorder(window.stream, {mimeType: 'video/webm'});
             recording = true;
@@ -96,9 +94,8 @@ export default {
         function stopRecording() { 
             mediaRecorder.stop();
             flashGesture(stopButton); 
-            tempAlert("Stopping recording",2000); 
+            tempAlert("Stopping recording", 2000); 
             recording = false;
-            // emit recorded video blob 
             vm.$emit('recorded-video', recordedBlobs);  
         }
 
@@ -114,7 +111,6 @@ export default {
             }, vidLength); 
         }
 
-
         function checkVideoStop() {
             pauseMedia();   // Pausing allows chance for server to update
             updateServer();
@@ -124,9 +120,8 @@ export default {
         if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
             navigator.mediaDevices.getUserMedia({ video: true, audio: true }).then(function(stream) {
                 recordButton.disabled = false;
-                window.stream = stream;
-                // Play video stream in preview box
-                preview.srcObject = stream;
+                window.stream = stream;              
+                preview.srcObject = stream;  // Play video stream in preview box
             });
         }
 
@@ -150,9 +145,8 @@ export default {
                 }
                 if (text == "thumbs_up"){
                     startRecording(vidLength);
-                }
-                // resumemedia() will do nothing unless video on and paused 
-                resumeMedia();               
+                }               
+                resumeMedia();  // resumemedia() will do nothing unless video on and paused      
             });
         }
 
@@ -178,7 +172,6 @@ export default {
             flashGesture(photoButton);  
             snapCanvas()
             canvas.toBlob(function(blob){
-                // emit blob for storage in gallery
                 vm.$emit('caputure-image', blob);
             }, 'image/jpeg', 0.95)
         }
@@ -186,9 +179,8 @@ export default {
         function updateServer(){            
             snapCanvas();
             canvas.toBlob(function(blob){
-                // post regular snapshots to server for gesture analysis
                 postData(post_url, blob)
-            }, 'image/jpeg', 0.95)
+            }, 'image/jpeg', 0.95)  // Post snapshots to server to be classified
         }
         // Take and send photo every x seconds
         window.setInterval(updateServer, 9000);
@@ -260,4 +252,5 @@ export default {
         animation-iteration-count: infinite;
         animation-timing-function: linear; 
     } 
+
 </style>
