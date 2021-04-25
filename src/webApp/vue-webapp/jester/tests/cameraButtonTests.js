@@ -21,23 +21,26 @@ module.exports = {
             })
     },
 
-    // 'Take video button test': function(browser) {
-    //     browser
-    //         .url('http://localhost:8080/')
-    //         .waitForElementVisible('#record')
-    //         .click('#record', setTimeout(function(){    // Click start recording button, 
-    //             browser
-    //                 .click('#stop', function() {        // Click stop recording after 1 second
-    //                     browser
-    //                         .click("#galleryButton", function(){    // Move to gallery tab
-    //                             browser
-    //                                 .waitForElementVisible('#recorded') // Check if video is there
-    //                                 .assert.elementPresent('#recorded');                 
-    //                         })
-    //                 }
-    //                 )       
-    //         }, 2000));
-    // }
+    'Take video button test': function(browser) {
+        browser
+            .url('http://localhost:8080/')
+            .waitForElementVisible('#record')
+            .pause(2000)
+            .click('#record', function(){    // Click start recording button, 
+                browser
+                    .pause(500)
+                    .click('#stop', function() {        // Click stop recording 
+                        console.log("STOP WAS CLICKED")
+                        browser
+                            .click("#galleryButton", function(){    // Move to gallery tab
+                                browser
+                                    .waitForElementVisible('#recorded') // Check if video is there
+                                    .assert.elementPresent('#recorded');                 
+                            })
+                    }
+                    )       
+            });
+    }
  
    
     // make sure "no photos" is no longer displaying 
