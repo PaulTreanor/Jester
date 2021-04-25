@@ -3,8 +3,6 @@
 */
 
 module.exports = {
-    '@disabled': true,
-    
     // Camera page loads when app URL is loaded
     'Camera tab load test': function(browser) {
         browser
