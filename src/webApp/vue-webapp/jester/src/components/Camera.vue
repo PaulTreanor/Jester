@@ -183,7 +183,7 @@ export default {
             }, 'image/jpeg', 0.95)  // Post snapshots to server to be classified
         }
         // Take and send photo every x seconds
-        window.setInterval(updateServer, 9000);
+        window.setInterval(updateServer, 8000);
     }
 }
 </script>
