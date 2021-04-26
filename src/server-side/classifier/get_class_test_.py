@@ -14,9 +14,7 @@ import os
 
 @pytest.mark.inDistribution
 def test_peace_classification():
-	# relative path to test images. 
-	image_path = os.path.realpath('../server_test/test-images/peace')	
-	#image_path = 'C:\\Users\\trean\\Desktop\\College\\4YP\\2021-ca400-ptreanor-cgorman\\src\\server-side/server_test\\test-images\\peace'
+	image_path = os.path.realpath('../server_test/test-images/peace')		# relative path to test images. 
 	classification = getClass(image_path)
 	assert classification == 'peace'
 

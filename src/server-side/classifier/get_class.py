@@ -21,9 +21,13 @@ output_path = os.path.realpath('/openposeJSON')
 json_path = os.path.realpath('/openposeJSON/image_keypoints.json')
 
 # OpenPose path 
-config = configparser.ConfigParser()
-config.read('jester.ini')
-openpose_root_location = config['Jester']['openpose_root_location']
+#config = configparser.ConfigParser()
+#config.read('jester.ini')
+#openpose_root_location = config['Jester']['openpose_root_location']
+
+# get root project folder 
+project_root_location = os.path.abspath(str(pathlib.Path().absolute()) + "/../../../")
+openpose_root_location = project_root_location + '/build/openpose'
 
 # Write and run OpenPose command
 def runOpenPose(image_path):

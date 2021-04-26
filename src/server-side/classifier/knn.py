@@ -5,10 +5,8 @@ from scipy.spatial import distance
 class knn:
 	def __init__(self, k=5):
 		self.k = k     # Number of nearest neighbours from gesture returned 
-		try:
-			self.df = pd.read_csv("transformed_dataset.csv")
-		except FileNotFoundError:
-			self.df = pd.read_csv("src/server-side/classifier/transformed_dataset.csv")
+		self.df = pd.read_csv("transformed_dataset.csv")
+	
 
 	def get_knn(self, gesture_data):
 		# nearest_neighbours is list of k nearest neighbours tuples in the form (distance, class_name, feature_coordinates)

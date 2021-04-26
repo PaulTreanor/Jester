@@ -11,8 +11,9 @@ import configparser
 # Read image upload path from jester.ini
 config = configparser.ConfigParser()
 config.read('jester.ini')
-root_upload_path = config['Jester']['classifier_folder'] + '/uploads'
 current_file_path = str(pathlib.Path().absolute())
+
+root_upload_path = current_file_path + '/uploads'
 
 ALLOWED_EXTENSIONS = {'.jpg', '.jpeg', ""}
 
