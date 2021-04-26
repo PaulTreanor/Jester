@@ -6,6 +6,9 @@ from knn import knn
 from conf_functions import library_local_outlier_factor, get_conf_LoF, get_conf_ldofs
 import os
 import configparser
+import urllib.request
+
+import pathlib
 
 # Gestures below min confidence are likely to be OOD 
 # Recommended min_confidence values for k=5 : (lib_lof: -1.3), (lof: -3), (ldof: -25)
@@ -104,5 +107,10 @@ def getClass(image_path):
 	return classification
 
 if __name__ == '__main__':
-	image_path = 'C:\\Users\\trean\\Desktop\\College\\4YP\\2021-ca400-ptreanor-cgorman\\src\\server-side\\test-images\\ood'					
+	# Ad hoc test - downloads, classifies, and deletes image - should be print "OOD"
+	image_link = "https://lh6.googleusercontent.com/--QuD816Ai5ZprRTkIWgAQRLthSuytQHZxbOIRbj-p6ryUF1gtWVsC-f80QII6duXalbsLisEm7DWw=w1920-h969-rw"
+	urllib.request.urlretrieve(image_link, "ood_test_image.jpg")
+	
+	image_path = str(pathlib.Path().absolute())
 	print(getClass(image_path))
+	os.remove("ood_test_image.jpg")
