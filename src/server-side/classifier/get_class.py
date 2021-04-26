@@ -112,9 +112,9 @@ def getClass(image_path):
 
 if __name__ == '__main__':
 	# Ad hoc test - downloads, classifies, and deletes image - should be print "OOD"
-	image_link = "https://lh6.googleusercontent.com/--QuD816Ai5ZprRTkIWgAQRLthSuytQHZxbOIRbj-p6ryUF1gtWVsC-f80QII6duXalbsLisEm7DWw=w1920-h969-rw"
-	urllib.request.urlretrieve(image_link, "ood_test_image.jpg")
 	
-	image_path = str(pathlib.Path().absolute())
+	image_path = os.path.abspath(str(pathlib.Path().absolute()) + "/../server_test/test-images/ood")
+	
+	
 	print(getClass(image_path))
-	os.remove("ood_test_image.jpg")
+	
