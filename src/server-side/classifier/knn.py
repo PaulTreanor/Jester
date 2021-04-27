@@ -10,6 +10,8 @@ class knn:
 		except FileNotFoundError:
 			self.df = pd.read_csv("src/server-side/classifier/transformed_dataset.csv")
 
+	
+
 	def get_knn(self, gesture_data):
 		# nearest_neighbours is list of k nearest neighbours tuples in the form (distance, class_name, feature_coordinates)
 		nearest_neighbuors = []

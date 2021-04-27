@@ -6,6 +6,9 @@ from knn import knn
 from conf_functions import library_local_outlier_factor, get_conf_LoF, get_conf_ldofs
 import os
 import configparser
+import urllib.request
+
+import pathlib
 
 # Gestures below min confidence are likely to be OOD 
 # Recommended min_confidence values for k=5 : (lib_lof: -1.3), (lof: -3), (ldof: -25)
@@ -18,9 +21,13 @@ output_path = os.path.realpath('/openposeJSON')
 json_path = os.path.realpath('/openposeJSON/image_keypoints.json')
 
 # OpenPose path 
-config = configparser.ConfigParser()
-config.read('jester.ini')
-openpose_root_location = config['Jester']['openpose_root_location']
+#config = configparser.ConfigParser()
+#config.read('jester.ini')
+#openpose_root_location = config['Jester']['openpose_root_location']
+
+# get root project folder 
+project_root_location = os.path.abspath(str(pathlib.Path().absolute()) + "/../../../")
+openpose_root_location = project_root_location + '/build/openpose'
 
 # Write and run OpenPose command
 def runOpenPose(image_path):
@@ -104,5 +111,10 @@ def getClass(image_path):
 	return classification
 
 if __name__ == '__main__':
-	image_path = 'C:\\Users\\trean\\Desktop\\College\\4YP\\2021-ca400-ptreanor-cgorman\\src\\server-side\\test-images\\ood'					
+	# Ad hoc test - downloads, classifies, and deletes image - should be print "OOD"
+	
+	image_path = os.path.abspath(str(pathlib.Path().absolute()) + "/../server_test/test-images/ood")
+	
+	
 	print(getClass(image_path))
+	

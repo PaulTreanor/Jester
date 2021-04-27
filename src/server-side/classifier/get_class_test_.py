@@ -1,6 +1,7 @@
 import pytest 
 from get_class import getClass
 from pytest import ExitCode
+import os
 
 # To run all tests remove "-v -m" and the specific marker
 # python -m pytest .\get_class_tests.py -v -m marker
@@ -13,37 +14,37 @@ from pytest import ExitCode
 
 @pytest.mark.inDistribution
 def test_peace_classification():
-	image_path = 'C:\\Users\\trean\\Desktop\\College\\4YP\\2021-ca400-ptreanor-cgorman\\src\\server-side\\test-images\\peace'
+	image_path = os.path.realpath('../server_test/test-images/peace')		# relative path to test images. 
 	classification = getClass(image_path)
 	assert classification == 'peace'
 
 @pytest.mark.inDistribution
 def test_palm_classification():
-	image_path = 'C:\\Users\\trean\\Desktop\\College\\4YP\\2021-ca400-ptreanor-cgorman\\src\\server-side\\test-images\\palm'
+	image_path = os.path.realpath('../server_test/test-images/palm')	
 	classification = getClass(image_path)
 	assert classification == 'palm'
 
 @pytest.mark.inDistribution
 def test_thumbs_up_classification():
-	image_path = 'C:\\Users\\trean\\Desktop\\College\\4YP\\2021-ca400-ptreanor-cgorman\\src\\server-side\\test-images\\thumbs-up'
+	image_path = os.path.realpath('../server_test/test-images/thumbs-up')	
 	classification = getClass(image_path)
 	assert classification == 'thumbs_up'
 
 @pytest.mark.inDistribution
 def test_alt_peace_classification():
-	image_path = 'C:\\Users\\trean\\Desktop\\College\\4YP\\2021-ca400-ptreanor-cgorman\\src\\server-side\\test-images\\alt-peace'
+	image_path = os.path.realpath('../server_test/test-images/alt-peace')	
 	classification = getClass(image_path)
 	assert classification == 'peace'
 
 @pytest.mark.inDistribution
 def test_alt_palm_classification():
-	image_path = 'C:\\Users\\trean\\Desktop\\College\\4YP\\2021-ca400-ptreanor-cgorman\\src\\server-side\\test-images\\alt-palm'
+	image_path = os.path.realpath('../server_test/test-images/alt-palm')	
 	classification = getClass(image_path)
 	assert classification == 'palm'
 
 @pytest.mark.inDistribution
 def test_alt_thumbs_up_classification():
-	image_path = 'C:\\Users\\trean\\Desktop\\College\\4YP\\2021-ca400-ptreanor-cgorman\\src\\server-side\\test-images\\alt-thumbs-up'
+	image_path = os.path.realpath('../server_test/test-images/alt-thumbs-up')	
 	classification = getClass(image_path)
 	assert classification == 'thumbs_up'
 	
@@ -53,25 +54,25 @@ def test_alt_thumbs_up_classification():
 #@pytest.mark.outOfDistribution
 @pytest.mark.outOfDistribution
 def test_ood_classification():
-	image_path = 'C:\\Users\\trean\\Desktop\\College\\4YP\\2021-ca400-ptreanor-cgorman\\src\\server-side\\test-images\\ood'
+	image_path = os.path.realpath('../server_test/test-images/ood')	
 	classification = getClass(image_path)
 	assert classification == 'OOD'
 
 @pytest.mark.outOfDistribution
 def test_fuzzy_classification():
-	image_path = 'C:\\Users\\trean\\Desktop\\College\\4YP\\2021-ca400-ptreanor-cgorman\\src\\server-side\\test-images\\fuzzy'
+	image_path = os.path.realpath('../server_test/test-images/fuzzy')	
 	classification = getClass(image_path)
 	assert classification == 'OOD'
 
 @pytest.mark.outOfDistribution
 def test_no_hand_classification():
-	image_path = 'C:\\Users\\trean\\Desktop\\College\\4YP\\2021-ca400-ptreanor-cgorman\\src\\server-side\\test-images\\no-hand'
+	image_path = os.path.realpath('../server_test/test-images/no-hand')	
 	classification = getClass(image_path)
 	assert classification == 'OOD'
 
 @pytest.mark.outOfDistribution
 def test_alt_ood_classification():
-	image_path = 'C:\\Users\\trean\\Desktop\\College\\4YP\\2021-ca400-ptreanor-cgorman\\src\\server-side\\test-images\\alt-ood'
+	image_path = os.path.realpath('../server_test/test-images/alt-ood')	
 	classification = getClass(image_path)
 	assert classification == 'OOD'
 

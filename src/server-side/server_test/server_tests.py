@@ -2,9 +2,12 @@ import os
 import requests
 import pytest 
 import socket
+import pathlib
 
 LOCAL_IP_ADDRESS = socket.gethostbyname(socket.gethostname())
 API_URL = 'http://'+LOCAL_IP_ADDRESS+':5000/'
+
+test_image_folder_path = str(pathlib.Path().absolute())
 
 # Status codes 
 OK_STATUS_CODE = 200
@@ -23,14 +26,14 @@ def test_connection():
 	assert response.status_code == OK_STATUS_CODE
 
 def test_ood_image():
-	filepath = "C:\\Users\\trean\\Desktop\\College\\4YP\\2021-ca400-ptreanor-cgorman\\src\\server-side\\test-images\\ood/"
+	filepath = test_image_folder_path + "/test-images/ood/"
 	filename = 'image.jpg'
 	response = post_file(filename, filepath)
 	assert response.status_code == SUCCESS_STATUS_CODE and response.text == "OOD"
 
 
 def test_gesture_image():
-	filepath = "C:\\Users\\trean\\Desktop\\College\\4YP\\2021-ca400-ptreanor-cgorman\\src\\server-side\\test-images\\alt-palm/"
+	filepath = test_image_folder_path + "/test-images/alt-palm/"
 	filename = 'image.jpg'
 	response = post_file(filename, filepath)
 	assert response.status_code == SUCCESS_STATUS_CODE and response.text == "palm"
@@ -45,7 +48,7 @@ if __name__ == "__main__":
 	response = requests.get(API_URL)
 	print(response.status_code, response.text)
 	# Send file
-	filepath = "C:\\Users\\trean\\Desktop\\College\\4YP\\2021-ca400-ptreanor-cgorman\\src\\server-side\\test-images\\alt-palm/"
+	filepath = test_image_folder_path + "/test-images/alt-palm/"
 	filename = 'image.jpg'
 	post_file(filename, filepath)
 

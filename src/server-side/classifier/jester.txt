@@ -1,2 +1,0 @@
-[Jester]
-openpose_root_location = C:\Users\trean\Documents\openpose_1.6\openpose
