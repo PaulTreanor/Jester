@@ -20,7 +20,17 @@
             <div class="alert d-inline-flex">
                 <i class="icon far fa-hand-paper fa-2x"></i>
                 <p>A flat palm facing the camera stops the recording</p>
-            </div>
+            </div>`
+            
+            <hr>
+
+            <h4> Change Jester API address</h4>
+
+            <form  v-on:submit.prevent="updateServerAddress">
+                 <input type="text" size="45" v-model="tempAddress" :placeholder="currAddress" >
+                  <br>
+                  <button type="submit" class="btn btn-primary mt-3">Change Address</button>  
+              </form>
         </b-container>
     </main>
 </template>
@@ -28,7 +38,19 @@
 <script>
 export default {
     name: "Info",
-    props: ["active_view"]
+    props: ["active_view", "server_address"],
+    data () {
+        return {
+            currAddress: this.server_address,
+            tempAddress: ""
+        }
+    },
+    methods: {
+        updateServerAddress() {
+            console.log("Server address updating")
+            this.$emit('change-address', this.tempAddress);
+        }
+    }
 }
 </script>
 
@@ -63,4 +85,15 @@ export default {
     .icon {
         margin-right: 20px;      
     }
+
+    .btn-primary {
+        background-color: purple;
+        border-color: #730073;
+    }
+
+    .btn-primary:hover {
+    color: #fff;
+    background-color: #660066;
+    border-color: #993299;
+}
 </style>

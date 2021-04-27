@@ -27,6 +27,12 @@
 <script>
 export default {
     name: "Camera",
+    props: ["server_address"],
+    data () {
+        return {
+            serverAddress: this.server_address
+        }
+    },
     mounted() {
         let mediaRecorder;
         let recordedBlobs;
@@ -41,7 +47,7 @@ export default {
         const recordButton = document.querySelector('#record');
         const stopButton = document.querySelector('#stop');
         const preview = document.querySelector('video#preview');
-        var post_url = "http://192.168.43.105:5000/image";
+        var post_url = this.serverAddress + "image";
         var recording = false;
 
 

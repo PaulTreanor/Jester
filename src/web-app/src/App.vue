@@ -1,8 +1,8 @@
 <template>
   <div id="app">
-    <Nav v-bind:active-view = "active_view" v-on:active-view='setActiveView'/>
-    <Camera v-on:caputure-image='storeImage' v-on:recorded-video='storeVideo' v-if="active_view === 1"/>
-    <Info  v-if="active_view === 2"/>
+    <Nav v-bind:active-view="active_view" v-on:active-view='setActiveView'/>
+    <Camera v-bind:server_address="serverAddress" v-on:caputure-image='storeImage' v-on:recorded-video='storeVideo' v-if="active_view === 1"/>
+    <Info  v-bind:server_address="serverAddress" v-on:change-address='changeAddress' v-if="active_view === 2"/>
     <Gallery v-bind:photo="photos" v-bind:video="recordedVideos" v-if="active_view === 3"/>
   </div>
 </template>
@@ -26,11 +26,16 @@ export default {
       active_view: 1,
       photos: [],
       recordedVideos: [], 
-
+      serverAddress: "http://192.168.43.105:5000/",
     };
   },
   
   methods: { 
+    changeAddress(address) {
+      console.log(address)
+      this.serverAddress = address;
+    },
+
     setActiveView(num) {
       this.active_view = num;
     },
