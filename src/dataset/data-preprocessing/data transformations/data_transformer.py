@@ -1,5 +1,5 @@
 import csv
-from gesture_plotter import plot
+#from gesture_plotter import plot
 import math
 
 
