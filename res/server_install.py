@@ -5,20 +5,20 @@ import zipfile
 from subprocess import Popen
 
 openpose_download = "https://github.com/CMU-Perceptual-Computing-Lab/openpose/releases/download/v1.6.0/openpose-1.6.0-binaries-win64-gpu-flir-3d_recommended.zip"
-flask_download = "https://github.com/pallets/flask/archive/refs/tags/1.1.2.zip"
+
 current_file_path = str(pathlib.Path().absolute())
 openpose_install_path = current_file_path  + "/../build/openpose.zip"
 
 
 ########## INSTALL REQUIRED PYTHON MODULES ############
 
-#print("Installing required python modules")
-#os.system('pip install -r requirements.txt')
+print("Installing required python modules")
+os.system('pip install -r requirements.txt')
 
 ######### DOWNLOAD AND INSTALL OPENPOSE #################
 
 print("Starting OpenPose download (418mb) - this may take a while")	
-urllib.request.urlretrieve(flask_download, openpose_install_path)										### flask is a small file size - good for testing
+urllib.request.urlretrieve(openpose_download, openpose_install_path)										
 print("OpenPose download complete")
 
 print("Extracting openpose.zip")
@@ -29,8 +29,8 @@ with zipfile.ZipFile(openpose_install_path, 'r') as zip_ref:
 
 print("Installing OpenPose - this may also take a while...")
 
-openpose_batch_path = current_file_path  + "/../build/openpose/models"
-p = Popen("getModels.bat", cwd=(str(pathlib.Path().absolute())))
+os.chdir(current_file_path  + "/../build/openpose/models")
+p = Popen("getModels.bat")
 stdout, stderr = p.communicate()
 
 print("OpenPose Installation completed")
