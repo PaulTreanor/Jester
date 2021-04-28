@@ -1,4 +1,3 @@
-
 /*
     Test if take photo, start video, and stop video buttons work as expected.
     A device camera is required for these tests to pass. 
@@ -41,9 +40,4 @@ module.exports = {
                     )       
             });
     }
- 
-   
-    // make sure "no photos" is no longer displaying 
-
-    //test download?
 }
