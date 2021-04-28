@@ -1,36 +1,7 @@
-# CA400 template repo
+# Jester  
+Jester is a gesture recognition system and web-app that allows users to control their device's camera using hand gestures. 
 
-This is a template for CA400 projects.
+The system uses a loosely coupled client server architecture based on a gesture recogition API which is written primarily in python, and a web-app built with Vue.js. Both the client and server code has continuously been tested by an extensive suite of unit, integration, and system tests, ensuring high quality software. 
 
-## 1. Create your repo
+The installer makes setting the API up to run on a server very easy, and the app can be configured to connect to any instance of the API simply by typing in the server's address. 
 
-One person from your project team should fork this repo, then add other teammates as project members on GitLab.
-
-## 2. Name your repo appropriately
-
-The name of your project must be of the form `2021-ca400-XXXXXXX`, where "`XXXXXXX`"
-should be replaced with your usernames (e.g. `2021-ca400-sblott-pclarke`).
-**Note** that the year should be set as appropriate to your year of study (e.g. in the
-2021/2022 academic year, this would change to '2022-ca400-sblott-pclarke')
-
-It is the *name of your repo* which matters (not the name of your project).
-
-You can change the name of your repo on GitLab under:
-
-- Settings / General / Advanced / Change path
-
-It looks like this:
-
-![change-repo-path](./res/repo-change-path.png "Change repo path.")
-
-You should replace all of this file with a README describing your own project.
-
-## Additional resources
-
-- Repo [hygiene](https://gitlab.computing.dcu.ie/sblott/local-gitlab-documentation/blob/master/repo-hygiene.md)
-- Git [cheat sheet](https://gitlab.computing.dcu.ie/sblott/local-gitlab-documentation/blob/master/cheat-sheet.md)
-- Gitlab [CI environment](https://gitlab.computing.dcu.ie/sblott/docker-ci-environment) and it's [available software](https://gitlab.computing.dcu.ie/sblott/docker-ci-environment/blob/master/Dockerfile)
-- Example projects with CI configured:
-   * [Python](https://gitlab.computing.dcu.ie/sblott/test-project-python)
-   * [Java](https://gitlab.computing.dcu.ie/sblott/test-project-java)
-   * [MySql](https://gitlab.computing.dcu.ie/sblott/test-project-mysql)
