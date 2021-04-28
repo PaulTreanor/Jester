@@ -54,5 +54,5 @@ def test_local_r_density(get_neighbours_list, get_A):
 	k = 5	# Number of nearest neighbours A is compared to
 	classifier = knn(k)
 	local_reachability_distance = conf_functions.local_r_density(A, nearest_neighbours, classifier, k)
-	assert local_reachability_distance == 0.014146622167822212
+	assert round(local_reachability_distance, 5) == round(0.014146622167822212,5)
 
