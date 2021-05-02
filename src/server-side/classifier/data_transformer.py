@@ -63,7 +63,7 @@ def rotate(hand_gesture):
 	while i < len(x):
 		tmp = x[i]
 		x[i] = round((math.cos(degrees) * x[i] - math.sin(degrees) * y[i]),3)
-		y[i] = round((math.sin(degrees) * tmp + math.cos(degrees) * y[i]),3)#
+		y[i] = round((math.sin(degrees) * tmp + math.cos(degrees) * y[i]),3)
 		hand_gesture.extend([x[i], y[i]])
 		i+=1
 	return hand_gesture
