@@ -6,9 +6,9 @@ class knn:
 	def __init__(self, k=5):
 		self.k = k     # Number of nearest neighbours from gesture returned 
 		try:
-			self.df = pd.read_csv("transformed_dataset.csv")
+			self.dataframe = pd.read_csv("transformed_dataset.csv")
 		except FileNotFoundError:
-			self.df = pd.read_csv("src/server-side/classifier/transformed_dataset.csv")
+			self.dataframe = pd.read_csv("src/server-side/classifier/transformed_dataset.csv")
 
 	
 
@@ -16,7 +16,7 @@ class knn:
 		# nearest_neighbours is list of k nearest neighbours tuples in the form (distance, class_name, feature_coordinates)
 		nearest_neighbuors = []
 		
-		for line in self.df.itertuples():
+		for line in self.dataframe.itertuples():
 			file_name = line[0]
 			class_name = line[-1]
 			features = line[2:-1]
