@@ -4,6 +4,23 @@ This blog is to document the research and design done during the development of 
 
 _____
 
+## System testing and creating an installer - Paul - 28/04/2021
+
+After almost 4 months of working on Jester we're glad to be reaching the CA400 deadline, and we're extremely proud of what we've created. There were a few smaller additions to the project required this week before starting on the documentation, namely system testing and creating an installer for the project. 
+
+### System testing 
+I used nightwatch.js to create a suite of end to end tests, which ensure that the web app works correctly. These tests run automatically in the browser, and test if pages load correclty, if the app's navigation works, and if taking pictures and videos work. 
+
+Automating the gesture camera control functionaltiy was not possible as a person needs to be making a gesture towards the system's camera. Instead manual testing was used to ensure that the gesture camera controls work as they are suposed to. This shouldn't be an issue as the gesture recognition API and classifier have strong automated testing.
+
+### Installer
+While I was writing the user manual I realised that the Jester installation process was complicated but could be automated.
+
+Before creating an installation script I removed hardcoded paths within the project's code. These paths were read from a configuration file called jester.ini, which the system administrator would be required to edit. Creating a script to download OpenPose to a specific path within the project's folder allowed for relative paths to be used, removing the need for configuration file altogether (the OpenPose license allows for distribution). 
+
+Connecting the web app to a specific server that runs the Jester API expected a system administrator to edit a hardcoded server address within the app's code, which would be bad practice. To fix this I added an option in the info tab of the app where the user can enter the address of the API directly, which is safer and easier than editing code directly. 
+
+
 ## System Front End - Paul - 7/04/2021
 By week 8 I had to stop working on the classifier as there was still no progress made on the system's front end.
 
